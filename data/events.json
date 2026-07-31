@@ -1,0 +1,66 @@
+[
+  {
+    "id": "20260806-sunrise-yoga",
+    "title": "Sunrise Yoga Session",
+    "hobby": "Wellness",
+    "date": "2026-08-06",
+    "location": "Lakefront Pier",
+    "description": "Gentle flow for all levels. Mats available on site."
+  },
+  {
+    "id": "20260808-board-game-night",
+    "title": "Board Game Night",
+    "hobby": "Entertainment",
+    "date": "2026-08-08",
+    "location": "Cafe Meeple",
+    "description": "Catan, Wingspan, and whatever you bring. Snacks provided."
+  },
+  {
+    "id": "20260809-film-club-scifi",
+    "title": "Film Club: Sci-Fi Classics",
+    "hobby": "Movies",
+    "date": "2026-08-09",
+    "location": "Community Hall",
+    "description": "Blade Runner screening followed by group discussion."
+  },
+  {
+    "id": "20260810-pottery-workshop",
+    "title": "Beginner Pottery Workshop",
+    "hobby": "Entertainment",
+    "date": "2026-08-10",
+    "location": "Clay Studio",
+    "description": "Two-hour intro to wheel throwing. Aprons included."
+  },
+  {
+    "id": "20260814-jazz-in-the-park",
+    "title": "Jazz in the Park",
+    "hobby": "Music",
+    "date": "2026-08-14",
+    "location": "Central Green",
+    "description": "Live quartet at sunset. Bring a blanket and a friend."
+  },
+  {
+    "id": "20260815-community-5k",
+    "title": "Community 5K Fun Run",
+    "hobby": "Exercise",
+    "date": "2026-08-15",
+    "location": "Riverside Park",
+    "description": "A friendly morning jog with post-run coffee. All paces welcome."
+  },
+  {
+    "id": "20260820-sunday-hike-club",
+    "title": "Sunday Hike Club",
+    "hobby": "Travel",
+    "date": "2026-08-20",
+    "location": "Forest Trailhead",
+    "description": "Easy 5km trail walk for beginners."
+  },
+  {
+    "id": "20260802-sunday-table-tennis",
+    "title": "Sunday Table Tennis",
+    "hobby": "Exercise",
+    "date": "2026-08-02",
+    "location": "Sheung Wan",
+    "description": "Table Tennis 10 people"
+  }
+]
