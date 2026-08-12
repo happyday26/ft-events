@@ -11,6 +11,65 @@ export interface Event {
 
 export type NewEventInput = Omit<Event, "id">;
 
+export interface RssFeed {
+  id: string;
+  url: string;
+  /** Human-facing site to open when the card is clicked (not the XML feed). */
+  website: string;
+  category: HobbyKey;
+  description: string;
+}
+
+export type NewRssFeedInput = Omit<RssFeed, "id">;
+
+/** Known feed hosts that aren't useful as click targets. */
+const FEED_HOST_TO_WEBSITE: Record<string, string> = {
+  "feeds.bbci.co.uk": "https://www.bbc.com/news",
+  "feeds.bbc.co.uk": "https://www.bbc.com/news",
+  "www.npr.org": "https://www.npr.org",
+  "rss.nytimes.com": "https://www.nytimes.com",
+  "feeds.reuters.com": "https://www.reuters.com",
+};
+
+export function resolveFeedWebsite(feedUrl: string, website?: string): string {
+  if (website?.trim()) {
+    try {
+      return new URL(website.trim()).toString();
+    } catch {
+      // fall through
+    }
+  }
+
+  try {
+    const parsed = new URL(feedUrl);
+    const host = parsed.hostname.replace(/^www\./, "");
+    const mapped =
+      FEED_HOST_TO_WEBSITE[parsed.hostname] ?? FEED_HOST_TO_WEBSITE[host];
+    if (mapped) return mapped;
+    return `${parsed.protocol}//${parsed.hostname}/`;
+  } catch {
+    return feedUrl;
+  }
+}
+
+export function buildFeedId(url: string, existingIds: string[]): string {
+  let host = "feed";
+  try {
+    host = new URL(url).hostname.replace(/^www\./, "").replace(/\./g, "-");
+  } catch {
+    host = slugifyTitle(url) || "feed";
+  }
+
+  let id = `rss-${host}`;
+  if (!existingIds.includes(id)) return id;
+
+  let counter = 2;
+  while (existingIds.includes(`${id}-${counter}`)) {
+    counter += 1;
+  }
+  return `${id}-${counter}`;
+}
+
 export function slugifyTitle(title: string): string {
   return title
     .toLowerCase()

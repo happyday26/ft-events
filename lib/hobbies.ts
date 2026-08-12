@@ -6,6 +6,7 @@ export const HOBBIES = [
   "Music",
   "Movies",
   "Wellness",
+  "Finance",
 ] as const;
 
 export type HobbyKey = (typeof HOBBIES)[number];
@@ -19,6 +20,7 @@ export const HOBBY_HEX: Record<HobbyKey, string> = {
   Music: "#0891b2",
   Movies: "#ea580c",
   Wellness: "#ca8a04",
+  Finance: "#854d0e",
 };
 
 export function isHobbyKey(value: string): value is HobbyKey {

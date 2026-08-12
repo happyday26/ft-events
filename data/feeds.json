@@ -1,0 +1,23 @@
+[
+  {
+    "id": "rss-feeds-bbci-co-uk",
+    "url": "https://feeds.bbci.co.uk/news/rss.xml",
+    "website": "https://www.bbc.com/news",
+    "category": "Entertainment",
+    "description": "BBC News world headlines"
+  },
+  {
+    "id": "rss-www-npr-org",
+    "url": "https://www.npr.org/rss/rss.php?id=1001",
+    "website": "https://www.npr.org/",
+    "category": "Health",
+    "description": "NPR top stories"
+  },
+  {
+    "id": "rss-seekingalpha-com",
+    "url": "https://seekingalpha.com/feed.xml",
+    "website": "https://seekingalpha.com/",
+    "category": "Finance",
+    "description": "Seeking Alpha market news"
+  }
+]

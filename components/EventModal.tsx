@@ -11,6 +11,7 @@ interface EventModalProps {
   open: boolean;
   mode: "add" | "edit";
   event?: Event | null;
+  defaultHobby?: HobbyKey;
   onClose: () => void;
   onSaved: () => void;
 }
@@ -35,6 +36,7 @@ export default function EventModal({
   open,
   mode,
   event,
+  defaultHobby = "Exercise",
   onClose,
   onSaved,
 }: EventModalProps) {
@@ -54,11 +56,11 @@ export default function EventModal({
         description: event.description,
       });
     } else {
-      setForm(emptyForm);
+      setForm({ ...emptyForm, hobby: defaultHobby });
     }
 
     setError(null);
-  }, [open, mode, event]);
+  }, [open, mode, event, defaultHobby]);
 
   useEffect(() => {
     if (!open) return;
