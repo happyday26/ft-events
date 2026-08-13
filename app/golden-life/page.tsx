@@ -1,13 +1,11 @@
 import { fetchE123PhysicalPreview } from "@/lib/e123";
-import { fetchHealthyUPreview } from "@/lib/healthyu";
 import { fetchOlinkFeedPreview } from "@/lib/olink";
 import GoldenLifePage from "@/components/GoldenLifePage";
 
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  const [healthyU, e123, olink] = await Promise.all([
-    fetchHealthyUPreview(10),
+  const [e123, olink] = await Promise.all([
     fetchE123PhysicalPreview(10),
     fetchOlinkFeedPreview(10),
   ]);
@@ -15,7 +13,6 @@ export default async function Page() {
   return (
     <GoldenLifePage
       snapshots={{
-        healthyu: healthyU,
         "e123-physical": e123,
         "olink-feed": olink,
       }}

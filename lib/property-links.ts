@@ -22,8 +22,8 @@ export const PROPERTY_LINKS: PropertyLink[] = [
   {
     id: "harbourside-centaline",
     label: "The Harbourside · Centaline Property",
-    href: "https://hk.centanet.com/estate/%E5%90%9B%E8%87%A8%E5%A4%A9%E4%B8%8B/1-ESPPWGPXPD",
-    note: "君臨天下 · estate page",
+    href: "https://hk.centanet.com/findproperty/list/buy/%E5%90%9B%E8%87%A8%E5%A4%A9%E4%B8%8B_2-ESPPWPPJPD?q=df1jk532pmbyr",
+    note: "君臨天下 · 買樓 · 最新放盤",
   },
   {
     id: "harbourside-t2-sale",

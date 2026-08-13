@@ -121,4 +121,11 @@ export const ARTS_CULTURE_LINKS: ArtsCultureLink[] = [
     note: "PMQ · programmes & events",
     preview: "snapshot",
   },
+  {
+    id: "acoo",
+    label: "ACOO - Make Tomorrow Better",
+    href: "https://www.acoo.hk/",
+    note: "Hong Kong culture & creative media",
+    preview: "snapshot",
+  },
 ];

@@ -286,4 +286,10 @@ export const MEDIA_LINKS: MediaLink[] = [
     href: "https://gwulo.com/",
     note: "Historical photos & Hong Kong stories",
   },
+  {
+    id: "buddhistcompassion",
+    label: "溫暖人間 buddhistcompassion",
+    href: "https://buddhistcompassion.org/",
+    note: "Buddhist life biweekly · compassion & stories",
+  },
 ];

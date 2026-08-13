@@ -14,6 +14,7 @@ const NAV = [
   { href: "/arts-culture", label: "Arts & Culture" },
   { href: "/media", label: "Media" },
   { href: "/travel", label: "Travel" },
+  { href: "/outings", label: "Outings" },
   { href: "/property", label: "Property" },
   { href: "/golden-life", label: "Golden Life" },
   { href: "/health", label: "Health" },
