@@ -79,10 +79,52 @@ export const GOLDEN_LIFE_DIRECTORY_LINKS: GoldenLifeDirectoryLink[] = [
     note: "e123 · SAGE elder services portal",
   },
   {
+    id: "fifty-plus-article",
+    label: "50+ article",
+    href: "https://www.e123.hk/zh-hant/health",
+    note: "e123 · health and lifestyle articles for 50+",
+  },
+  {
+    id: "after-retirement",
+    label: "After-retirement communities and activities",
+    href: "https://www.e123.hk/zh-hant/learning/retirement",
+    note: "e123 · 退休生活 · courses and community activities",
+  },
+  {
+    id: "hrca",
+    label: "Happy-Retired Charity Action 樂活新中年慈善動力",
+    href: "https://happy-retired.org/",
+    note: "Job and volunteer matching · 50+ training",
+  },
+  {
+    id: "lipace-cbmp",
+    label: "自在人生自學計劃 LiPACE",
+    href: "https://www.hkmu.edu.hk/lipace/tc/cbmp/",
+    note: "HKMU LiPACE · Capacity Building Mileage Programme",
+  },
+  {
+    id: "cadenza-etools",
+    label: "CADENZA e-tools",
+    href: "https://www.cadenza.hk/e-tools/zh/",
+    note: "JC CADENZA e-tools for Elder Care · CUHK Institute of Ageing",
+  },
+  {
+    id: "hkrsa",
+    label: "香港退休計劃協會",
+    href: "https://www.hkrsa.org.hk/hk/Home",
+    note: "Hong Kong Retirement Schemes Association (HKRSA)",
+  },
+  {
     id: "sage",
     label: "香港耆康老人福利會(簡稱耆康會)",
     href: "https://www.sage.org.hk/",
     note: "The Hong Kong Society for the Aged",
+  },
+  {
+    id: "sage-aac",
+    label: "耆康會飛躍天地",
+    href: "https://www.sage.org.hk/tc/aac",
+    note: "SAGE Active Ageing Centre · 觀塘飛躍天地",
   },
   {
     id: "hku-elder",
@@ -103,10 +145,22 @@ export const GOLDEN_LIFE_DIRECTORY_LINKS: GoldenLifeDirectoryLink[] = [
     note: "CityU Elder Academy · campus search",
   },
   {
+    id: "eduhk-elder-dir",
+    label: "教大長者學苑 EdUHK Elder Academy",
+    href: "https://www.eduhk.hk/elderacademy/view.php?secid=2582&u=u",
+    note: "EdUHK Elder Academy · programmes and background",
+  },
+  {
     id: "hkmu-elder",
     label: "香港公開大學長者學苑",
     href: "https://www.hkmu.edu.hk/lipace/tc/elderacademy/",
     note: "HKMU (前公開大學) · LiPACE Elder Academy",
+  },
+  {
+    id: "lipace-ict",
+    label: "長者進階數碼培訓計劃",
+    href: "https://www.hkmu.edu.hk/lipace/tc/elderacademy/ict/",
+    note: "HKMU LiPACE Elder Academy · 樂齡資NET 新世代",
   },
   {
     id: "lingnan-elder",
@@ -125,5 +179,17 @@ export const GOLDEN_LIFE_DIRECTORY_LINKS: GoldenLifeDirectoryLink[] = [
     label: "香港第三齡學苑 (香港電燈與香港社會服務聯會成立)",
     href: "https://www.hkcss.org.hk/u3a/",
     note: "U3A · HKCSS & HK Electric",
+  },
+  {
+    id: "ggia",
+    label: "Greater Good in Action",
+    href: "https://ggia.berkeley.edu/",
+    note: "UC Berkeley Greater Good Science Center · science-based practices",
+  },
+  {
+    id: "appreciative-inquiry",
+    label: "Appreciative Inquiry",
+    href: "https://appreciativeinquiry.champlain.edu/ai-highlights/",
+    note: "Champlain College · AI Commons highlights",
   },
 ];

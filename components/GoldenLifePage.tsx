@@ -3,6 +3,7 @@ import {
   GOLDEN_LIFE_LINKS,
 } from "@/lib/golden-life-links";
 import type { SiteSnapshot } from "@/lib/site-snapshot";
+import ActivityReports from "./ActivityReports";
 import SiteHeader from "./SiteHeader";
 import SitePreviewCard from "./SitePreviewCard";
 import SnapshotPreview from "./SnapshotPreview";
@@ -26,6 +27,8 @@ export default function GoldenLifePage({ snapshots }: GoldenLifePageProps) {
             later life.
           </p>
         </header>
+
+        <ActivityReports />
 
         <section aria-label="Elder Academy directory" className="mb-8">
           <div className="mb-2 flex items-baseline justify-between gap-2">

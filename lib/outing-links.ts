@@ -15,4 +15,11 @@ export const OUTING_LINKS: OutingLink[] = [
     note: "Hong Kong hiking routes · beginner to advanced",
     preview: "iframe",
   },
+  {
+    id: "gofun",
+    label: "GoFun",
+    href: "https://www.gofun.com.hk/",
+    note: "Hong Kong weekend, family and date-day outings",
+    preview: "iframe",
+  },
 ];

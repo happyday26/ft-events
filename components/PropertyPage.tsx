@@ -1,4 +1,5 @@
 import { PROPERTY_LINKS } from "@/lib/property-links";
+import PropertyReports from "./PropertyReports";
 import SiteHeader from "./SiteHeader";
 
 export default function PropertyPage() {
@@ -16,6 +17,8 @@ export default function PropertyPage() {
             research.
           </p>
         </header>
+
+        <PropertyReports />
 
         <section aria-label="Property links">
           <div className="mb-2 flex items-baseline justify-between gap-2">

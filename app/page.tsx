@@ -6,6 +6,7 @@ import {
   fetchTopHketNews,
   fetchTopWsjNews,
 } from "@/lib/finance-news";
+import { fetchFxClosingRates } from "@/lib/fx";
 import { fetchWatchlistQuotes } from "@/lib/hsi";
 import { fetchHongKongWeather } from "@/lib/weather";
 import HomePage from "@/components/HomePage";
@@ -18,6 +19,7 @@ export default async function Page() {
     weather,
     gold,
     quotes,
+    fxRates,
     financeNews,
     wsjNews,
     hketNews,
@@ -27,6 +29,7 @@ export default async function Page() {
     fetchHongKongWeather(),
     fetchLondonGoldClose(),
     fetchWatchlistQuotes(),
+    fetchFxClosingRates(),
     fetchTopFinanceNews(5),
     fetchTopWsjNews(5),
     fetchTopHketNews(5),
@@ -39,6 +42,7 @@ export default async function Page() {
       weather={weather}
       gold={gold}
       quotes={quotes}
+      fxRates={fxRates}
       financeNews={financeNews}
       wsjNews={wsjNews}
       hketNews={hketNews}

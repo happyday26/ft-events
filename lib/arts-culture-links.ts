@@ -10,13 +10,6 @@ export interface ArtsCultureLink {
 /** Arts & culture watchlist — compact previews like Golden Life. */
 export const ARTS_CULTURE_LINKS: ArtsCultureLink[] = [
   {
-    id: "popticket",
-    label: "Popticket.hk",
-    href: "https://www.popticket.hk/",
-    note: "撲飛 · ticketing & live events",
-    preview: "iframe",
-  },
-  {
     id: "lcsd-edutainment",
     label: "康文署寓樂頻道",
     href: "https://www.lcsd.gov.hk/edutainment/tc/",

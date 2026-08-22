@@ -22,4 +22,25 @@ export const HEALTH_LINKS: HealthLink[] = [
     note: "Yau Tsim Mong District Health Centre",
     preview: "snapshot",
   },
+  {
+    id: "mindfulness-sports",
+    label: "Mindfulness Sports",
+    href: "http://mindfulness-sports.org/",
+    note: "賽馬會老友運動計劃 · 靜觀動樂",
+    preview: "snapshot",
+  },
+  {
+    id: "pause-and-breathe",
+    label: "心呼吸學習空間",
+    href: "https://practice.pauseandbreathe.org/",
+    note: "Pause & Breathe · free mindfulness courses",
+    preview: "snapshot",
+  },
+  {
+    id: "heart-to-heart",
+    label: "同心服務 · Heart to Heart",
+    href: "https://www.onlinecompanionhk.org/hearttoheart",
+    note: "Online Companion · guided CBT counselling",
+    preview: "snapshot",
+  },
 ];

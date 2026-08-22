@@ -3,6 +3,8 @@ import { stripHtml, type SiteSnapshot } from "./site-snapshot";
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
+const PREVIEW_TIMEOUT_MS = 4000;
+
 /** Lightweight title / meta / heading snapshot when a site blocks iframes. */
 export async function fetchGenericSitePreview(
   sourceUrl: string,
@@ -10,13 +12,17 @@ export async function fetchGenericSitePreview(
   limit = 16,
 ): Promise<SiteSnapshot | null> {
   try {
-    const response = await fetch(`${sourceUrl}${sourceUrl.includes("?") ? "&" : "?"}r=${Date.now()}`, {
-      cache: "no-store",
-      headers: {
-        Accept: "text/html",
-        "User-Agent": UA,
+    const response = await fetch(
+      `${sourceUrl}${sourceUrl.includes("?") ? "&" : "?"}r=${Date.now()}`,
+      {
+        cache: "no-store",
+        signal: AbortSignal.timeout(PREVIEW_TIMEOUT_MS),
+        headers: {
+          Accept: "text/html",
+          "User-Agent": UA,
+        },
       },
-    });
+    );
     if (!response.ok) return null;
 
     const html = await response.text();

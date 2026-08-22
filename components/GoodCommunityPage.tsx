@@ -1,6 +1,5 @@
 import { GOOD_COMMUNITY_LINKS } from "@/lib/good-community-links";
 import SiteHeader from "./SiteHeader";
-import SitePreviewCard from "./SitePreviewCard";
 
 export default function GoodCommunityPage() {
   return (
@@ -18,17 +17,29 @@ export default function GoodCommunityPage() {
           </p>
         </header>
 
-        {GOOD_COMMUNITY_LINKS.map((link) => (
-          <SitePreviewCard key={link.id} label={link.label} href={link.href}>
-            <iframe
-              src={link.href}
-              title={`${link.label} preview`}
-              className="block h-[720px] w-full border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </SitePreviewCard>
-        ))}
+        <section aria-label="Good Community links">
+          <ul className="divide-y divide-forest-100 rounded-lg bg-white ring-1 ring-forest-100">
+            {GOOD_COMMUNITY_LINKS.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-baseline justify-between gap-3 px-3 py-2.5 hover:bg-sage-50"
+                >
+                  <span className="min-w-0">
+                    <span className="block text-sm font-medium text-forest-700">
+                      {link.label} →
+                    </span>
+                    <span className="block text-xs text-sage-800/55">
+                      {link.note}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </>
   );

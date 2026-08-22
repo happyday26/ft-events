@@ -32,6 +32,30 @@ export const PROPERTY_LINKS: PropertyLink[] = [
     note: "Midland · Tower 2 sale listings",
   },
   {
+    id: "harbourside-ricacorp",
+    label: "君臨天下｜利嘉閣地產",
+    href: "https://www.ricacorp.com/zh-hk/property/list/buy/%E5%90%9B%E8%87%A8%E5%A4%A9%E4%B8%8B-estate-%E4%B9%9D%E9%BE%8D%E7%AB%99-hma-hk",
+    note: "九龍站 · 優質物業放售",
+  },
+  {
+    id: "sorrento-centaline",
+    label: "Sorrento · Centaline Property",
+    href: "https://hk.centanet.com/findproperty/list/buy/%E6%93%8E%E5%A4%A9%E5%8D%8A%E5%B3%B6_3-ESPPWPPEPD?q=pb3qk5900i7eh",
+    note: "擎天半島 · 買樓 · 最新放盤",
+  },
+  {
+    id: "sorrento-p2-midland",
+    label: "Sorrento · Phase 2 for Sale",
+    href: "https://www.midland.com.hk/zh-hk/list/buy/%E6%93%8E%E5%A4%A9%E5%8D%8A%E5%B3%B6-2%E6%9C%9F-P-P000000874",
+    note: "Midland · 擎天半島 2期 · 買樓",
+  },
+  {
+    id: "sorrento-ricacorp",
+    label: "擎天半島｜利嘉閣地產",
+    href: "https://www.ricacorp.com/zh-hk/property/list/buy/%E6%93%8E%E5%A4%A9%E5%8D%8A%E5%B3%B6-bigest-%E4%B9%9D%E9%BE%8D%E7%AB%99-hma-hk;saleableAreaFrom=1001;saleableAreaTo=1500",
+    note: "九龍站 · 實用面積 1001–1500 呎",
+  },
+  {
     id: "village-gardens-centaline",
     label: "又一村花園｜中原地產",
     href: "https://hk.centanet.com/estate/%E5%8F%88%E4%B8%80%E6%9D%91%E8%8A%B1%E5%9C%92/3-MXLITHSSHS",

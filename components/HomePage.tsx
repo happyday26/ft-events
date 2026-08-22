@@ -1,11 +1,14 @@
 import type { RssFeed } from "@/lib/types";
 import type { LondonGoldPrice } from "@/lib/gold";
 import type { FinanceNewsItem } from "@/lib/finance-news";
+import type { FxRate } from "@/lib/fx";
 import type { MarketQuote } from "@/lib/hsi";
 import type { HkWeather } from "@/lib/weather";
 import SiteHeader from "./SiteHeader";
 import HkWeatherBanner from "./HkWeatherBanner";
 import MarketQuotesBanner from "./MarketQuotesBanner";
+import FxRatesBanner from "./FxRatesBanner";
+import ConsolidatedReportPanel from "./ConsolidatedReport";
 import FinanceNewsSection from "./FinanceNewsSection";
 import TopLinks from "./TopLinks";
 
@@ -14,6 +17,7 @@ interface HomePageProps {
   weather: HkWeather | null;
   gold: LondonGoldPrice | null;
   quotes: MarketQuote[];
+  fxRates: FxRate[];
   financeNews: FinanceNewsItem[];
   wsjNews: FinanceNewsItem[];
   hketNews: FinanceNewsItem[];
@@ -25,6 +29,7 @@ export default function HomePage({
   weather = null,
   gold = null,
   quotes = [],
+  fxRates = [],
   financeNews = [],
   wsjNews = [],
   hketNews = [],
@@ -38,6 +43,9 @@ export default function HomePage({
         <HkWeatherBanner weather={weather} />
         <TopLinks feeds={feeds} />
         <MarketQuotesBanner gold={gold} quotes={quotes} />
+        <FxRatesBanner rates={fxRates} />
+
+        <ConsolidatedReportPanel />
 
         <FinanceNewsSection
           items={financeNews}
