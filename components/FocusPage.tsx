@@ -34,7 +34,7 @@ function TopicSection({ topic }: { topic: FocusTopic }) {
           <li key={story.sourceHref} className="px-3 py-3 sm:px-4">
             <div className="flex items-start gap-2.5">
               <span className="mt-0.5 w-4 shrink-0 text-xs font-semibold text-forest-700">
-                {index + 1}.
+                {`${index + 1}.`}
               </span>
               <div className="min-w-0">
                 <h3 className="text-sm font-medium leading-snug text-sage-900">
