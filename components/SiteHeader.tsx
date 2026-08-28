@@ -10,6 +10,7 @@ interface SiteHeaderProps {
 
 const NAV = [
   { href: "/", label: "Home" },
+  { href: "/focus", label: "Focus" },
   { href: "/events", label: "Events" },
   { href: "/arts-culture", label: "Arts & Culture" },
   { href: "/media", label: "Media" },
@@ -24,6 +25,8 @@ const NAV = [
 
 export default function SiteHeader({ onAddEventClick, onAddRssClick }: SiteHeaderProps) {
   const pathname = usePathname();
+  const showEventsShortcut = pathname === "/" && !onAddEventClick;
+  const showActions = Boolean(onAddRssClick || onAddEventClick || showEventsShortcut);
 
   return (
     <header className="border-b border-forest-200/80">
@@ -32,7 +35,7 @@ export default function SiteHeader({ onAddEventClick, onAddRssClick }: SiteHeade
           href="/"
           className="font-serif text-xl font-bold tracking-wide text-forest-700"
         >
-          FT Events
+          FT Deck
         </Link>
 
         <nav className="flex flex-wrap gap-2" aria-label="Main">
@@ -58,33 +61,36 @@ export default function SiteHeader({ onAddEventClick, onAddRssClick }: SiteHeade
           })}
         </nav>
 
-        <div className="ml-auto flex flex-wrap gap-2">
-          {onAddRssClick && (
-            <button
-              type="button"
-              onClick={onAddRssClick}
-              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-forest-800 ring-1 ring-forest-200 transition hover:bg-forest-50"
-            >
-              + Add RSS
-            </button>
-          )}
-          {onAddEventClick ? (
-            <button
-              type="button"
-              onClick={onAddEventClick}
-              className="rounded-full bg-forest-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-forest-700"
-            >
-              + Add Event
-            </button>
-          ) : (
-            <Link
-              href="/events"
-              className="rounded-full bg-forest-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-forest-700"
-            >
-              Events →
-            </Link>
-          )}
-        </div>
+        {showActions && (
+          <div className="ml-auto flex flex-wrap gap-2">
+            {onAddRssClick && (
+              <button
+                type="button"
+                onClick={onAddRssClick}
+                className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-forest-800 ring-1 ring-forest-200 transition hover:bg-forest-50"
+              >
+                + Add RSS
+              </button>
+            )}
+            {onAddEventClick && (
+              <button
+                type="button"
+                onClick={onAddEventClick}
+                className="rounded-full bg-forest-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-forest-700"
+              >
+                + Add Event
+              </button>
+            )}
+            {showEventsShortcut && (
+              <Link
+                href="/events"
+                className="rounded-full bg-forest-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-forest-700"
+              >
+                Events →
+              </Link>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );
