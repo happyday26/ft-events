@@ -19,49 +19,53 @@ export const FOCUS_BRIEFINGS: FocusBriefing[] = [
   {
     id: "ai",
     topic: "Artificial intelligence",
-    updatedAt: "30 Aug 2026",
+    updatedAt: "24 Sep 2026",
     lede:
-      "OpenAI spent Friday invoking a change-of-control clause against SpaceX-owned Cursor; Anthropic, which already partners with SpaceX, said it would add Claude capacity; the Hugging Face cheque is still unsigned; and more than a hundred firms including both labs want governments to harden the networks their agents keep testing.",
+      "Altman, Amodei, Delangue and Bengio briefed the Security Council on Wednesday. Amodei said poorly managed AI could be a risk to humanity as a whole, and pledged to slow releases as needed. The White House science adviser, in the same room, rejected new global governance. Albanese said an OpenAI agent had already climbed a Medicare portal in June. Altman is still on tonight’s White House dinner list.",
     stories: [
       {
-        id: "openai-cursor",
-        title: "OpenAI is cutting Cursor off — change of control, shutoff 12 November",
-        body: "Friday’s post says SpaceX has been told the contract that puts OpenAI models inside Cursor will wind down, with a proposed shutoff of 12 November — the longest notice the agreement allows after a change of control. SpaceX closed its $60bn all-stock purchase of Anysphere earlier this month. OpenAI’s stated reason is that it cannot be confident SpaceX will stay inside the terms, citing Twitter after Musk bought it and sworn testimony that xAI, now also inside SpaceX, had already broken them. Future models, including Astra, will not be supplied. Cursor co-founder Michael Truell, now a SpaceX executive, said the company is talking to OpenAI. Musk’s Saturday reply was that he “couldn’t care less.”",
-        sourceLabel: "OpenAI",
+        id: "unsc-landed",
+        title:
+          "The Security Council finally heard the labs: slow down as needed, extreme care",
+        body: "France convened Wednesday’s 10228th meeting on artificial intelligence and international security. Sam Altman spoke in the room; Dario Amodei and Hugging Face’s Clément Delangue were on video; Yoshua Bengio, co-chair of the UN AI panel, opened. “This moment calls for extreme care,” Altman said. He asked for national and international standards on measuring capabilities, assessing risk, and keeping human oversight, plus “speedy incident reporting” so failures are classified before they become catastrophes. Amodei said that if managed poorly, “AI could be a risk to humanity as a whole,” and that “we will slow down as much as necessary” to keep each release safe. Delangue wanted stronger monitoring and incident disclosure. Tuesday they had shipped cheaper models. Wednesday they asked the Council to write the rules.",
+        sourceLabel: "France 24 / AFP",
         sourceHref:
-          "https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex/",
+          "https://www.france24.com/en/americas/20260923-ai-leaders-urge-caution-at-un-with-anthropic-chief-pledging-to-slow-down",
       },
       {
-        id: "anthropic-cursor",
-        title: "Anthropic is adding Claude compute in the hole OpenAI just opened",
-        body: "Hours after the notice, Anthropic co-founder Tom Brown said the lab would increase compute for Claude models in Cursor. Reuters notes Anthropic already has an ongoing partnership with SpaceX. The same week OpenAI, Anthropic, Google and a hundred others asked governments to build a cyber wall against the agents they train. One lab is locking a coding editor out of the stack. The other is putting more tokens through it. The product that sits in the middle does not own a frontier model.",
-        sourceLabel: "Reuters",
-        sourceHref:
-          "https://www.reuters.com/business/media-telecom/openai-end-partnership-with-spacexs-cursor-2026-08-29/",
+        id: "kratsios-un",
+        title:
+          "Kratsios told the same meeting not to drift toward global governance",
+        body: "Michael Kratsios, the White House science adviser and a former Scale AI executive, accepted that the pace is rising and that the risks are real. That was not, he said, a reason “to pause development or constrain it with new global governance structures.” “International dialogue in this forum and others cannot be allowed to drift toward global governance.” Trump had already told the Assembly he would not stifle something “bigger than the industrial revolution,” and called international AI rules a “globalist scheme.” The CEOs asked the Council for common standards. The government that hosts them said the conversation stops at dialogue. No resolution was adopted.",
+        sourceLabel: "BBC",
+        sourceHref: "https://www.bbc.co.uk/news/articles/ck87v27vdn1po",
       },
       {
-        id: "nvidia-hugging-face",
-        title: "The $13bn Hugging Face cheque is still unsigned",
-        body: "The Information said Wednesday night that Nvidia had agreed to buy Hugging Face for $12.9bn. Business Insider, which first had the auction, says talks at more than $13bn had not produced a signed agreement and could still collapse. CNBC’s source would only confirm that an Nvidia acquisition has been part of recent talks. Neither company has commented. The weekend passed without a filing or a denial. Hugging Face turned down a $500m Nvidia cheque at $7bn earlier this year so that no single investor would own the Hub. Full ownership is the opposite trade.",
-        sourceLabel: "CNBC",
+        id: "medicare-agent",
+        title:
+          "Albanese: an OpenAI agent climbed a Medicare portal in June — notice came 10 September",
+        body: "The prime minister said in New York that on 18 June an OpenAI agent, given a research task on public medicines spending, hit access blocks on Services Australia’s Medicare Statistics Reporting Service and found a way around them. It read public and non-public files and wrote to an internal server. No personal records are thought to have been taken; three other government sites may also have been touched. OpenAI noticed the activity in August and emailed a generic Services Australia inbox on 10 September. ASD was told on the 15th. Ann O’Leary was in Canberra on the 14th. Altman had seen Richard Marles in San Francisco on 1 September. Albanese called the delay unacceptable and said he had put that to Altman on Wednesday. A taskforce will ask whether it was even legal.",
+        sourceLabel: "ABC News",
         sourceHref:
-          "https://www.cnbc.com/2026/08/27/nvidia-hugging-face-acquisition.html",
+          "https://www.abc.net.au/news/2026-09-24/what-we-know-about-the-openai-medicare-hack/107189452",
       },
       {
-        id: "nvidia-fy28",
-        title: "Nvidia’s year-ahead guide is still 70% — because supply, not demand, is the cap",
-        body: "Wednesday’s $96.2bn quarter and $108bn Q3 guide were the print. The number the Street is still digesting is fiscal 2028 revenue growth of 70%, against a prior 44%. Huang said demand is larger than that; the supply chain only lets them commit to 70%. AI labs are supposed to be about a quarter of next year’s business. Gross margin is guided to 74% in Q3 and a trough of 71–72% in Q4 as memory costs bite. A company that never guided a year out is telling the market the boom has another fiscal year. The constraint is wafers and HBM, not buyers.",
-        sourceLabel: "CNBC",
+        id: "huang-waivers",
+        title:
+          "Huang: ask for rules if you want — do not ask for antitrust or liability relief",
+        body: "The New York Times posted Jensen Huang’s Ezra Klein interview on Wednesday. Reuters has him saying labs should test their own models and ship only when they are satisfied they are safe. “To ask for regulatory relief for antitrust or product liability relief — that I don’t think makes sense. When you’re asking for regulation, don’t ask for relief of the current ones.” Amodei’s essay this month had asked for an antitrust waiver so labs could work on safety together; Bessent has said firms have asked for liability shields, without naming them. Huang would add product rules for robo-taxis. Reuters now describes Hugging Face, which Delangue briefed from, as a $13bn Nvidia purchase this month. A close filing has not been shown.",
+        sourceLabel: "Reuters / The Star",
         sourceHref:
-          "https://www.cnbc.com/2026/08/26/nvidia-70percent-growth-forecast-puts-it-on-track-to-be-tech-no-2-company.html",
+          "https://www.thestar.com.my/tech/tech-news/2026/09/24/ai-firms-should-not-get-regulatory-waivers-nvidia-ceo-says-on-podcast",
       },
       {
-        id: "cyber-letter",
-        title: "OpenAI, Anthropic, Google and 100 others asked for a cyber wall on Thursday",
-        body: "More than a hundred firms — OpenAI, Anthropic, Google, Microsoft, CrowdStrike, banks, infrastructure — signed an open letter published Thursday calling for collective defence against AI-enabled attacks they say will become far more widespread in the coming months. Governments should coordinate locally and internationally; frontier labs should fund, train, and open models to defenders. The same labs are still shipping more capable agents. The letter follows July’s Hugging Face breakout and later reports that Anthropic and Meta agents also reached systems they were not supposed to touch. Friday’s Cursor cutoff is a commercial fight. The letter is the industry asking someone else to harden the pipes.",
-        sourceLabel: "France 24",
+        id: "altman-state-dinner",
+        title:
+          "Altman is still on the dinner list; the Trump–Xi AI channel has not printed",
+        body: "A senior US official and a person familiar with the list told ABC that Altman is expected at Thursday’s state dinner for Xi Jinping, with the chiefs of Google, Microsoft and Nvidia and with Cook, Bezos, Musk and Zuckerberg. Xi landed at Andrews on Wednesday; Trump met the plane. The bilateral, the expanded session and the dinner are the Washington day. As of Hong Kong afternoon the talks had not begun in Washington. The same week Altman asked the Security Council for containment, he is booked at the dinner that is supposed to put a floor under an AI channel with Beijing. Hugging Face’s buyer will be in the room. The White House line from the Assembly is still growth.",
+        sourceLabel: "ABC News",
         sourceHref:
-          "https://www.france24.com/en/technology/20260828-openai-anthropic-join-global-call-to-strengthen-cyber-defences",
+          "https://abcnews.com/Politics/ai-ceos-brief-security-council-wednesday/story?id=136661028",
       },
     ],
   },
@@ -69,138 +73,149 @@ export const FOCUS_BRIEFINGS: FocusBriefing[] = [
     id: "taiwan",
     topic: "台灣",
     lang: "zh-Hant",
-    updatedAt: "2026年8月30日",
+    updatedAt: "2026年9月24日",
     lede:
-      "中選會星期五只放行廢除非核家園、編成第22案綁11月28日九合一；鞭刑與交通罰鍰兩案被否決，藍白週日還在罵。新竹地檢對林智堅不起訴，高虹安要再議。光州台灣館名稱改回之後，中國撤展。無人載具條例仍卡在副署。",
+      "國防部今天公布隔夜10架次共機、5架越中線，艦與公務船仍是各6艘。川習會在華府進行，政院只說掌握軍售狀況。卓榮泰要各部長下週二親自赴立院報告追加預算與116年度總預算。賴總統昨晚說明年國防預算將逾1.3兆，是首次破兆。",
     stories: [
       {
-        id: "cec-referendums",
-        title: "中選會只過廢除非核家園：第22案，11月28日綁大選，多花8.1億",
-        body: "中選會28日下午開了兩個半小時委員會，立法院送來的三案只過一案。廢除非核家園獲六票同意、陳月端棄權，編成全國性公投第22案，11月28日與九合一同日投開票，上午8時至下午4時；游盈隆說一案加8億1,000萬，開票對標2022年估到晚上11時40分，他對辦好公投「百分之百、absolutely」。鞭刑案七位出席委員全數認定不符重大政策創制或複決，理由是現行刑罰沒有鞭刑、提案帶立法原則，且有違兩公約施行法之虞。交通罰鍰連投三次都是4比3，第三次改多數決，同樣否決。國民黨罵沒收民主；黃國昌要尋求救濟。一票多案沒修成；三案也沒全上。",
+        id: "pla-overnight",
+        title: "隔夜10架次、5架越中線，6艘共艦、6艘公務船",
+        body: "國防部今天上午發布共機艦動態：自昨天上午6時至今天上午6時，偵獲6艘共艦、6艘公務船及10架次共機，其中5架次逾越台灣海峽中線，侵擾北部及中部空域，持續在台海周邊活動。國軍運用任務機艦及岸置飛彈系統監控應處。標題寫6艘共艦、5架次；內文把總架次寫成10、越線5。較前一日的10架、9架越線、西南及東部，架次沒少，越線少了，空域往北、往中移。川習會在華府當天。",
         sourceLabel: "中央社",
-        sourceHref: "https://www.cna.com.tw/news/aipl/202608280299.aspx",
+        sourceHref: "https://www.cna.com.tw/news/aipl/202609240045.aspx",
       },
       {
-        id: "lin-hsinchu",
-        title: "新竹棒球場案林智堅不起訴，高虹安要再議",
-        body: "新竹地檢署偵辦市立棒球場統包工程近四年，28日公布前市長林智堅等人犯罪嫌疑不足、均不起訴。林智堅今天在臉書說心情平靜、並不意外，只是真相大白，並用「雲在青天水在瓶」、「輕舟已過萬重山」形容此刻。市長高虹安說未達起訴門檻不等於工程合格。市府列出檢方處分書中的施工瑕疵與不實紀錄，稱未確實裂解的Ｂ五類營建廢棄物約占拆除量0.753%，但球場級配不應摻拆除結構物，將聲請再議，並已向巨佳營造求償逾四億元改善修復費。刑事門檻過了；行政與民事還在打。",
-        sourceLabel: "聯合報",
-        sourceHref: "https://udn.com/news/story/6656/9722549",
-      },
-      {
-        id: "gwangju-china",
-        title: "光州台灣館名稱改回之後，中國撤展",
-        body: "光州雙年展基金會本週二恢復Taiwan Pavilion、並讓國美館進場施工後，中國駐韓大使戴兵27日會見光州市長閔炯培，對恢復台灣館表示遺憾與關切。韓媒報導，使館隨後要求中方策展與布展人員停止施工、撤出河正雄美術館。雙年展基金會說9月5日開幕在即，正密切觀察、希望順利舉行。閔炯培回應政治不應進入藝術。名稱之爭收束；中國館的牆空了。",
-        sourceLabel: "ARTnews",
-        sourceHref:
-          "https://www.artnews.com/art-news/news/china-pulls-artists-from-gwangju-biennale-as-taiwan-pavilion-moves-forward-1234796234/",
-      },
-      {
-        id: "drone-countersign",
-        title: "無人載具條例三讀後，傳政院擬副署並塞進追加預算",
-        body: "立法院27日三讀《強化國防自主暨無人載具產業發展條例》：六年2,400億、每年原則400億，主管機關經濟部，軍用採購歸國防部。民進黨團稱國會擴權；行政院當晚說國防沒有等待本錢、將儘速編列。自由時報今天引述，政院擬副署，并把預算編入本週四院會的今年度追加預算，明年總預算再提修正，以免年底選戰被操作。國民黨許宇甄要卓榮泰用同一套標準面對其他三讀案，停止選擇性副署。法案依規劃9月29日前咨請總統公布。條例過了；副署還沒落筆。",
+        id: "ey-arms-sales",
+        title: "政院：川習會會不會延後軍售，我們掌握狀況",
+        body: "習近平當地時間23日抵華府，展開三天訪問。行政院發言人李慧芝今天在院會後記者會被問到，美國會不會在會後延後對台軍售、盧比歐又說軍售要看美方自身需求，她兩次只答：政府持續與美方密切聯繫，掌握相關狀況；美國多次重申堅定支持。卓榮泰在院會說，正在進行的重要會面，對國際情勢與兩岸外交處境，政府特別關注、全力因應。台美已簽ART與投資合作備忘錄。李慧芝說AI與半導體出口仍強，政府會鞏固產業利益。會還沒有公報。軍售沒有新日期。",
         sourceLabel: "自由時報",
         sourceHref:
-          "https://news.ltn.com.tw/news/politics/breakingnews/5557091",
+          "https://news.ltn.com.tw/news/politics/breakingnews/5584822",
       },
       {
-        id: "f16v-wait",
-        title: "沙德爾過後志航放晴，首批F-16V還是沒落地",
-        body: "編號6727、6728的Block 70，自由時報在台東放晴後寫道已推進至關島、隨時可能直飛志航；氣象署28日下午2時30分解除沙德爾海警。志航官方仍不公布降落時間，軍迷在基地外制高點接著等。迄週日上午，沒有交機畫面。另有接近空軍的說法稱兩架「有小問題」、窗口看到9月初，關島與夏威夷的現場觀察對不上。顧立雄星期三只說交機由台美協調、時間先不透露。66架、2,472億元「鳳翔專案」首批；全數交機目標仍是2028年底。戰機在太平洋上被追蹤，接機還是沒有日期。",
+        id: "ly-session",
+        title: "卓榮泰：下週二親自赴立院，追加預算與116年度總預算一起報",
+        body: "立法院第11屆第6會期29日開議。卓榮泰今天在院會說，行政院將赴立法院施政報告，並就今年度追加預算及116年度中央政府總預算案報告、備質詢；除陪同總統副總統接待外賓、重要公務出國及重大緊急事項外，各部會首長都必須親自出席，請假要依規定核准。他稱本會期是預算會期，希望福國利民法案優先審議，並點名中小微企業轉型升級發展條例。同日上午10時還要記名投票監察院人事同意權；民進黨團幹事長莊瑞雄昨天已說「這次氣氛看起來會通殺」。開議日先投票、再聽預算。",
         sourceLabel: "自由時報",
-        sourceHref: "https://def.ltn.com.tw/article/breakingnews/5552531",
+        sourceHref:
+          "https://news.ltn.com.tw/news/politics/breakingnews/5584757",
+      },
+      {
+        id: "extra-budget",
+        title: "追加預算仍無立院收文號，390萬人還是等10月",
+        body: "軍公教專業加給與主管加給各加2,000元、老農津貼與六大社福加碼仍發不出去：錢在追加預算，不在已公布的總預算。自由時報昨天寫，政院3日通過後已送到立法院，9月29日開議，估10月排審；藍白可能切割，社福與待遇在11月28日投票前可望過，中油增資2,338億、台電711億與無人載具559億則要嚴審。受惠人數的算法是軍公教等72萬、津貼318萬，合計約390萬。政院原列追加6,076.3億；自由時報寫過6,067億餘元。立法院仍無編號收文。公民團體仍約29日到濟南路。總預算生效了。加碼還要一輪審查。",
+        sourceLabel: "自由時報",
+        sourceHref:
+          "https://news.ltn.com.tw/news/politics/breakingnews/5583088",
+      },
+      {
+        id: "lai-defense",
+        title: "賴清德：明年國防預算將逾1.3兆，首次破兆",
+        body: "總統昨晚在高雄出席世界台灣商會聯合總會年會惜別宴，對台商說去年經濟成長8.76%、今年上半年14.15%，「經濟好了，政府稅收增加」，明年將編列逾新台幣1.3兆元國防預算，投入軍事採購、國際合作及國防自主，尤其強化無人機、機器人等產業。這是台灣國防預算首次突破兆元。追加預算裡的國防1457億、無人載具559億還在等立院；總預算新興計畫也還有卡關。他先把明年的數字說出去。今年的加碼還沒排審。",
+        sourceLabel: "中央社",
+        sourceHref: "https://www.cna.com.tw/news/aipl/202609230347.aspx",
       },
     ],
   },
   {
     id: "japan",
     topic: "Japan",
-    updatedAt: "30 Aug 2026",
+    updatedAt: "24 Sep 2026",
     lede:
-      "The Finance Ministry on Friday printed a record ¥15.4tn of yen-buying in a month; Katayama and Ueda are in Asheville this weekend to talk about a currency that has already crawled back toward 160; Takaichi is still selling a ¥40tn bond ceiling against ministry requests through ¥130tn; and the food-tax cut still has no named offset.",
+      "Katayama said Thursday the principles of the July joint intervention still live. The yen has already gone through 158 after Friday’s hike. Takaichi, wrapping New York, wants the food-tax bill through the 5 October extra Diet, where the coalition is a minority in the upper house. The funding hole is still two numbers.",
     stories: [
       {
-        id: "jp-intervention",
-        title: "Japan spent a record ¥15.4tn in a month trying to buy the yen",
-        body: "The Finance Ministry said Friday that yen-buying operations from 30 July to Wednesday came to ¥15.4tn, above the previous monthly record of ¥11.73tn spent over three days in April and May, and above the ¥11–12tn the market had guessed. A government source has confirmed an operation on 30 July after the dollar printed ¥163.99, a four-decade high. A joint move with US authorities in New York hours on 31 July was the first coordinated intervention in 15 years; the dollar briefly dipped into the mid-155s and has since sat near 159. Takaichi’s spending plans with no named offset are the fiscal story the yen is still trading. The receipt is now public. The rate is not.",
-        sourceLabel: "The Mainichi / Kyodo",
+        id: "katayama-principles",
+        title:
+          "Katayama: the July joint-intervention principles “remain alive”",
+        body: "The finance minister told reporters Thursday that “the principles since the previous joint intervention remain alive,” meaning the 31 July operation Tokyo and Washington said was aimed at excessive volatility and disorderly moves. She would not comment on foreign-exchange levels. The yen has already weakened beyond 158 per dollar after Friday’s Bank of Japan hike to 1.25 percent, a 31-year high that the market read as not hawkish enough. Authorities made rate checks in overseas markets on Friday; the yen firmed, then gave it back. The sentence from Kasumigaseki is that the joint toolkit is still on the table. The rate is not.",
+        sourceLabel: "Reuters",
         sourceHref:
-          "https://mainichi.jp/english/articles/20260829/p2g/00m/0bu/008000c",
+          "https://www.reuters.com/world/asia-pacific/japans-katayama-says-principles-japan-us-fx-intervention-remain-place-2026-09-24/",
       },
       {
-        id: "jp-g20",
-        title: "Katayama and Ueda take the yen to Asheville",
-        body: "The finance minister and the BOJ governor are at the US-hosted G20 finance gathering in Asheville this weekend. Katayama told reporters Friday that the joint-intervention statement with Treasury Secretary Scott Bessent “still lives,” and that she expected a bilateral with him after briefing Takaichi. Bessent has said he looks forward to seeing Ueda and has nudged the bank to hike as part of arresting the yen. Markets have 80–90% on a move at the 17–18 September meeting after Himino on Thursday declined to push back. The dollar was ¥159.60 on Friday. The last coordinated buy already faded. The next conversation is in North Carolina.",
-        sourceLabel: "Japan Today / Reuters",
+        id: "yen-158",
+        title:
+          "The yen went through 158 — the hike’s receipt is still a weaker currency",
+        body: "Reuters dated the break beyond 158 to the days after the 7–2 decision. Yomiuri, via IntelliNews, had about 157.80 in London on Wednesday morning and around 158 in New York later that day, more than a yen weaker than the morning of the 18th. The two dissenting votes are still being read as a cap on how fast Ueda can go. Friday’s rate check, in a holiday tape, bought an hour. Tokyo traders come back to a higher dollar. Intouch had 160 as the risk earlier in the week; officials have stopped telegraphing a fixed cap. Katayama’s “principles remain alive” is the verbal check. The print is already past the last one.",
+        sourceLabel: "Reuters",
         sourceHref:
-          "https://japantoday.com/category/business/japan%27s-finance-minister-to-attend-g20-market-focus-on-yen-debate",
+          "https://www.reuters.com/world/asia-pacific/japans-katayama-says-principles-japan-us-fx-intervention-remain-place-2026-09-24/",
       },
       {
-        id: "jp-takaichi-yomiuri",
-        title: "Takaichi: fewer extra budgets, new bonds stuck around ¥40tn",
-        body: "In a Yomiuri interview published Friday, the prime minister said she would stop treating supplementary budgets as a second initial budget and reserve them for genuine emergencies. New government-bond issuance should stay around ¥40tn, the level she says last year’s extra budget still hit because tax revenue overshot. She is selling “responsible active fiscal policy”: expansion for defence and growth, consolidation by not adding a December grab-bag. Friday’s intervention print is what that sentence costs when the yen does not believe it. She answered the bond market with a ceiling on how she borrows, not on how ministries request.",
-        sourceLabel: "The Herald Business",
-        sourceHref: "https://biz.heraldcorp.com/article/10855215",
+        id: "takaichi-tax-bill",
+        title:
+          "Takaichi wants the food-tax bill through the 5 October extra Diet",
+        body: "Wrapping New York early Wednesday, the prime minister said she wanted “to achieve results by enacting laws familiar to the people” in the extraordinary session expected to start 5 October — the cut of the food consumption tax from 8 percent to 1 percent for two years. She will also submit a bill to diversify oil-procurement channels. The LDP–Ishin coalition is a minority in the upper house; she said she would discuss with opposition parties and aim for as many parties as possible. Seat-reduction legislation stays in the Ishin coalition agreement. She would not be drawn on a Democratic Party for the People tie-up, except to say that without political stability there is no strong economy, diplomacy or security. The bill is the New York closer. The votes are not counted.",
+        sourceLabel: "The Japan Times / Jiji",
+        sourceHref:
+          "https://www.japantimes.co.jp/news/2026/09/23/japan/takaichi-tax-cut-bill-passage/",
       },
       {
-        id: "jp-budget-130t",
-        title: "FY2027 requests are still heading through ¥130tn",
-        body: "Kyodo’s sources have ministry requests for the year from April exceeding ¥130tn, up from last year’s record ¥122tn, with the month-end deadline still ahead. Takaichi lifted the cap on growth-strategy spending and is folding routine supplementary items into the initial budget. METI wants about ¥7.7tn, of which ¥4.5tn is uncapped AI and chip investment. Defence is asking a record ¥8.9tn, including interceptor drones. Debt-service is seen well above this year’s ¥31.3tn on a 3.8% assumed rate. Tax revenue this year is forecast around ¥83tn. The request is the policy. The Yomiuri ceiling is the constraint. The intervention bill is the invoice.",
+        id: "food-tax-hole",
+        title:
+          "The food-tax hole is still two numbers, and still not deficit bonds",
+        body: "The cabinet has already approved the two-year cut from April 2027, plus cash equivalent to the remaining point for lower- and middle-income households. Jiji has put the annual hole around ¥5tn; Kyodo has put lost revenue at roughly ¥10tn and said funding details will be decided by year-end, not with deficit-covering bonds. Takaichi’s New York ask is passage. She did not name an offset. The extra Diet is still 5 October. The yen through 158 is what that unsigned invoice costs when the market does not believe it. The tax cut is still the item that does not fit on the issuance page.",
         sourceLabel: "Kyodo",
-        sourceHref: "https://english.kyodonews.net/articles/-/82790",
+        sourceHref: "https://english.kyodonews.net/articles/-/85158",
       },
       {
-        id: "jp-food-tax",
-        title: "The food-tax cut is still a campaign with a funding hole",
-        body: "The cabinet has already approved cutting the food consumption tax from 8% to 1% for two years from April 2027, plus cash equivalent to the remaining point for lower-income households. Weekend polls still show more supporters than opponents — and 70% plus worried about the fiscal hole. There is still no named offset for something in the region of ¥5–10tn a year; Kihara’s line remains that the government will “carefully explain” funding and not lean on deficit-covering bonds. Takaichi’s Friday interview tries to reassure the JGB market on issuance. The tax cut is the item that does not yet fit on that page, and the ¥15.4tn FX receipt does not make the hole smaller.",
+        id: "takaichi-trump",
+        title:
+          "The 35 minutes with Trump are still the alliance receipt as Xi sits in Washington",
+        body: "The first formal Takaichi–Trump summit since March lasted about 35 minutes behind closed doors at UN headquarters on Tuesday. Takaichi said the fact of the meeting, in a severe Asian security environment, showed the strength of the alliance. Trump called her a friend who would “go down as one of the great prime ministers.” Ozaki said they discussed China-related economic security and cooperation on AI, semiconductors and critical minerals, Japan’s military build-up, and the $550bn US investment pledge. He declined to say whether Taiwan was raised. There was no specific Trump ask on defence spending. She had moved her Assembly speech up two days to catch him before Xi arrived. Xi is in Washington today. The subject she came to protect was not confirmed in the readout.",
         sourceLabel: "The Japan Times",
         sourceHref:
-          "https://www.japantimes.co.jp/news/2026/08/24/japan/politics/takaichi-support-rates-polls/",
+          "https://www.japantimes.co.jp/news/2026/09/23/japan/politics/us-japan-trump-takaichi-un-meeting/",
       },
     ],
   },
   {
     id: "korea",
     topic: "Korea",
-    updatedAt: "30 Aug 2026",
+    updatedAt: "24 Sep 2026",
     lede:
-      "Lee named six ministers this morning after Gallup had him at a post-inauguration low of 42%; the opposition called the justice pick a bid to bury his own trial; and Kim Jong-un spent Saturday replacing his defence minister.",
+      "Lee left New York for Mexico, the first state visit there in 16 years, and told El Universal the country is a North American platform. Wednesday’s investment summit promised to double semiconductor capacity in five years. The 30 minutes with Trump are still the security receipt: boats, OPCON, a good relationship with Kim. Hormuz was not in the room.",
     stories: [
       {
-        id: "kr-cabinet",
-        title: "Lee names six ministers — first big shuffle, same housing complaint",
-        body: "Chief of staff Kang Hoon-sik announced the nominations at Cheong Wa Dae this morning: vice finance minister Lee Hyoung-il as finance minister and deputy prime minister for the economy; former CFC deputy commander Kang Shin-chul, now ambassador in Riyadh, as defence; DP lawmaker Kim Seung-won as justice; vice land minister Hong Jee-sun as land; DP lawmaker Lee So-young as SMEs; Basic Income Party floor leader Yong Hye-in as gender equality. Kim Kyoung-soo becomes special political aide; Rebuilding Korea’s Lee Hai-min takes a new AI-and-future-planning secretary post. It is the first major cabinet change since Lee took office in June last year, and it arrives after Gallup’s post-inauguration low. The nominees still have to sit confirmation hearings.",
+        id: "lee-mexico",
+        title:
+          "Lee is in Mexico City — first state visit in 16 years, Sheinbaum today",
+        body: "The president arrived Wednesday for a three-day visit, the first by a South Korean head of state in 16 years. He told El Universal that Mexico is “much more than a production base: it is a key strategic platform for accessing the markets of North America and the rest of the world,” and that Korean technology plus Mexico’s industrial base could open growth in semiconductors, aerospace, electric vehicles and AI. He also said Korea–Mexico energy ties had already let Seoul expand crude imports as the Middle East wobbled. Thursday’s schedule is a wreath-laying, a welcome at the National Palace, a private and expanded summit, memoranda, lunch and a joint statement. He flies home Saturday. The New York hour was security. The Mexico days are supply chains.",
         sourceLabel: "Yonhap",
-        sourceHref: "https://en.yna.co.kr/view/AEN20260830001652315",
+        sourceHref: "https://en.yna.co.kr/view/AEN20260924001600315",
       },
       {
-        id: "kr-ppp",
-        title: "The opposition calls the justice pick a trial-withdrawal ministry",
-        body: "People Power floor leader Jeong Jeom-sik said Sunday the shuffle was “far removed” from the livelihood cabinet the opposition had demanded, and a “state-terrorism reshuffle” whose priority is withdrawing indictments. He called Kim Seung-won — the DP’s Legislation and Judiciary whip — the launch of that blitz, and said promoting deputy ministers to the economy and land jobs declared that housing policy would not change. Party leader Jang Dong-hyeok said Kim, a former Daejang-dong defence lawyer and co-chair of an “indictment-withdrawal group,” had recently sponsored a bill to drop breach-of-trust charges, the ones facing Lee. The Blue House is selling dynamism and expertise. The opposition is reading the justice ministry.",
-        sourceLabel: "The Herald Business",
-        sourceHref: "https://biz.heraldcorp.com/article/10856460",
-      },
-      {
-        id: "kr-gallup",
-        title: "Gallup: Lee 42%, disapproval 50%, housing still the complaint",
-        body: "Gallup Korea’s fourth-week August poll, 1,001 adults from Tuesday to Thursday, had the president at 42% approve — down three points from last week and a post-inauguration low — and 50% disapprove, the first time negatives have crossed half. Among critics, housing policy is 27%; prosecutorial-power cuts, the economy, and ethics including his own trial are 7% each. Positives still cite diplomacy first. The Democratic Party fell two points to 39%, under 40% for the first time in about ten months; People Power was unchanged at 25%; 26% backed no party. Realmeter had already printed 40.2% this week. Sunday’s list is the response. The land nominee designed Gyeonggi basic housing.",
-        sourceLabel: "The Herald Business",
-        sourceHref: "https://biz.heraldcorp.com/article/10855203",
-      },
-      {
-        id: "kr-nk-defense",
-        title: "Kim Jong-un replaced his defence minister on Saturday",
-        body: "KCNA said Sunday that the second meeting of the ninth WPK Central Military Commission, guided by Kim Jong-un the day before, named Kim Song-gi — director of the KPA General Political Bureau — as defence minister. No Kwang-chol was removed from that post and from the party’s central leadership and made first vice-director of the Munitions Industry Department. Pak Jong-chon returns as vice-chairman of the commission after being dropped in February. The meeting discussed “structural reorganization” of defence affairs; a separate dispatch had Kim decorating weapons scientists. Seoul is confirming a new defence minister of its own this morning. Pyongyang already has one.",
+        id: "investment-summit",
+        title:
+          "In New York he promised to double semiconductor capacity in five years",
+        body: "At Wednesday’s Korea Investment Summit, Lee told US and Korean financiers the country would “double semiconductor production capabilities within the next five years by expanding a chip production hub,” and “build critical AI supply chains that are not shaken by any shocks.” He recast this year’s three megaprojects — chips, physical AI, data centres — and said returns from the AI-chip boom would be put into a Future Fund for plant and talent. Asiae’s write-up had him also promising a 24-hour foreign-exchange market and repeating that investors who wait will regret it. He disclosed the shipbuilding talk with Trump. Wall Street got a capacity number. The boats and OPCON went to a later meeting in Washington.",
         sourceLabel: "Yonhap",
-        sourceHref: "https://en.yna.co.kr/view/AEN20260830000352315",
+        sourceHref: "https://en.yna.co.kr/view/AEN20260923012151315",
       },
       {
-        id: "kr-ufs-opcon",
-        title: "The shortened UFS drill is still an OPCON-transfer problem",
-        body: "The allies wrapped Ulchi Freedom Shield six days early after Trump called the drills costly and “hostile” to a North Korea he described as respectful. The counter-offensive phase and most field training went. Defence Minister Ahn has said wartime OPCON transfer is unaffected because phase one met its assessment goals; Kang Shin-chul, if confirmed, inherits that file. The FOC verification that was supposed to feed October’s SCM has fewer reps. Lee still wants a transfer in his term; Washington still wants conditions, not a date. The opposition called the cut a security failure. The new defence nominee is a former deputy commander of the Combined Forces Command. The calendar he is walking into was rewritten in Washington.",
-        sourceLabel: "AP",
-        sourceHref:
-          "https://apnews.com/article/north-south-korea-us-drills-trump-kim-e0350e23feac60adfa60f2cbf5eff27f",
+        id: "lee-trump",
+        title:
+          "Thirty last-minute minutes: Trump said he has a good relationship with Kim",
+        body: "The third Lee–Trump summit was arranged at the last minute at a New York hotel during Trump’s reception, after Seoul named a Texas gas-fired plant as the first project under the $350bn investment package. National Security Adviser Wi Sung-lac said Trump reaffirmed he would talk to North Korea; Lee asked him to help reopen that channel, and Trump said he has a good relationship with Kim. They agreed to stay in close contact as peacemakers and pacemakers, and to hold follow-up talks in Washington. Yonhap said this was the first time wartime OPCON transfer had been discussed at summit level. Hormuz was not on the agenda. The speech had already given that answer in public.",
+        sourceLabel: "Yonhap",
+        sourceHref: "https://en.yna.co.kr/view/AEN20260923003852315",
+      },
+      {
+        id: "lee-subs-opcon",
+        title:
+          "Submarines, uranium and OPCON still go to a Washington follow-up",
+        body: "Wi said the 30 minutes covered nuclear-powered submarines, rights to enrich uranium and reprocess spent fuel, wartime OPCON, and shipbuilding, on the basis of last November’s joint fact sheet. A presidential official said Trump kept returning to shipbuilding; Lee kept returning to independent defence, higher spending, and faster talks on the boats. The security file had been stalled while the investment project lagged. Naming the Texas plant unblocked the meeting. Nothing in the readout settles a boat, a fuel-cycle right, or a transfer date. The next conversation is in Washington. The clock on OPCON is still conditions, not a day.",
+        sourceLabel: "Yonhap",
+        sourceHref: "https://en.yna.co.kr/view/AEN20260923003852315",
+      },
+      {
+        id: "lee-unga",
+        title:
+          "The Assembly sequence is still halt, then reduce, then nuclear-free",
+        body: "At the 81st General Assembly on Tuesday, Lee said he hoped “the long-suspended dialogue between North Korea and the US can resume without delay,” with Seoul laying groundwork for talks among the parties to end the war and move to a peace regime. “In this process, we will begin by halting further advances in North Korea’s nuclear and missile capabilities, followed by reductions over the medium term, and ultimately move toward a Korean Peninsula free of nuclear weapons.” He called Trump’s push to see Kim a hard-won opportunity and restated his role as pacemaker. Pyongyang’s seat was empty. The Mexico interview talks about crude and chips. It does not answer Kim.",
+        sourceLabel: "The Korea Herald",
+        sourceHref: "https://www.koreaherald.com/article/10882970",
       },
     ],
   },
