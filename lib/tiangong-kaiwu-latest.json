@@ -1,0 +1,16 @@
+{
+  "query": "天工開物",
+  "venueHint": "東九文化中心 / East Kowloon Cultural Centre",
+  "since": "2026-07-02",
+  "until": "2026-08-30",
+  "days": 60,
+  "generatedAt": "2026-08-30T09:06:00.000Z",
+  "status": "not_found",
+  "hits": [],
+  "notes": [
+    "Searches URBTIX daily open-data batches for title「天工開物」.",
+    "Ticket listed date = first day the event code appears in those batches (list/sale proxy).",
+    "Also checks East Kowloon Cultural Centre programme pages.",
+    "No public listing found yet for dance drama《天工開物》at East Kowloon Cultural Centre (or URBTIX)."
+  ]
+}
