@@ -2,16 +2,25 @@ import { NextResponse } from "next/server";
 import {
   CONSOLIDATED_REPORT_DEFAULT_DAYS,
   buildConsolidatedReport,
+  type ConsolidatedReportScope,
 } from "@/lib/consolidated-report";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 180;
+
+const SCOPES = new Set<ConsolidatedReportScope>([
+  "property",
+  "performance",
+  "golden-life",
+  "all",
+]);
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const raw = searchParams.get("days");
     const days = raw ? Number(raw) : CONSOLIDATED_REPORT_DEFAULT_DAYS;
+    const scopeParam = searchParams.get("scope") || "all";
 
     if (!Number.isFinite(days) || days < 1 || days > 30) {
       return NextResponse.json(
@@ -20,7 +29,20 @@ export async function GET(request: Request) {
       );
     }
 
-    const report = await buildConsolidatedReport(days);
+    if (!SCOPES.has(scopeParam as ConsolidatedReportScope)) {
+      return NextResponse.json(
+        {
+          error:
+            "scope must be property, performance, golden-life, or all.",
+        },
+        { status: 400 },
+      );
+    }
+
+    const report = await buildConsolidatedReport(
+      days,
+      scopeParam as ConsolidatedReportScope,
+    );
     return NextResponse.json(report);
   } catch {
     return NextResponse.json(

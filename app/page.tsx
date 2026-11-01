@@ -8,6 +8,8 @@ import {
 } from "@/lib/finance-news";
 import { fetchFxClosingRates } from "@/lib/fx";
 import { fetchWatchlistQuotes } from "@/lib/hsi";
+import { loadReminders } from "@/lib/reminders";
+import { fetchTreasuryYields } from "@/lib/treasury";
 import { fetchHongKongWeather } from "@/lib/weather";
 import HomePage from "@/components/HomePage";
 
@@ -16,20 +18,24 @@ export const dynamic = "force-dynamic";
 export default async function Page() {
   const [
     feeds,
+    reminders,
     weather,
     gold,
     quotes,
     fxRates,
+    treasuryYields,
     financeNews,
     wsjNews,
     hketNews,
     hkejNews,
   ] = await Promise.all([
     loadFeeds(),
+    loadReminders(),
     fetchHongKongWeather(),
     fetchLondonGoldClose(),
     fetchWatchlistQuotes(),
     fetchFxClosingRates(),
+    fetchTreasuryYields(),
     fetchTopFinanceNews(5),
     fetchTopWsjNews(5),
     fetchTopHketNews(5),
@@ -39,10 +45,12 @@ export default async function Page() {
   return (
     <HomePage
       feeds={feeds}
+      reminders={reminders}
       weather={weather}
       gold={gold}
       quotes={quotes}
       fxRates={fxRates}
+      treasuryYields={treasuryYields}
       financeNews={financeNews}
       wsjNews={wsjNews}
       hketNews={hketNews}

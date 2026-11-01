@@ -1,23 +1,28 @@
-import type { RssFeed } from "@/lib/types";
+import type { Reminder, RssFeed } from "@/lib/types";
 import type { LondonGoldPrice } from "@/lib/gold";
 import type { FinanceNewsItem } from "@/lib/finance-news";
 import type { FxRate } from "@/lib/fx";
 import type { MarketQuote } from "@/lib/hsi";
+import type { TreasuryYield } from "@/lib/treasury";
 import type { HkWeather } from "@/lib/weather";
 import SiteHeader from "./SiteHeader";
 import HkWeatherBanner from "./HkWeatherBanner";
 import MarketQuotesBanner from "./MarketQuotesBanner";
 import FxRatesBanner from "./FxRatesBanner";
+import TreasuryYieldsBanner from "./TreasuryYieldsBanner";
+import RemindersPanel from "./RemindersPanel";
 import ConsolidatedReportPanel from "./ConsolidatedReport";
 import FinanceNewsSection from "./FinanceNewsSection";
 import TopLinks from "./TopLinks";
 
 interface HomePageProps {
   feeds: RssFeed[];
+  reminders: Reminder[];
   weather: HkWeather | null;
   gold: LondonGoldPrice | null;
   quotes: MarketQuote[];
   fxRates: FxRate[];
+  treasuryYields: TreasuryYield[];
   financeNews: FinanceNewsItem[];
   wsjNews: FinanceNewsItem[];
   hketNews: FinanceNewsItem[];
@@ -26,10 +31,12 @@ interface HomePageProps {
 
 export default function HomePage({
   feeds = [],
+  reminders = [],
   weather = null,
   gold = null,
   quotes = [],
   fxRates = [],
+  treasuryYields = [],
   financeNews = [],
   wsjNews = [],
   hketNews = [],
@@ -44,6 +51,9 @@ export default function HomePage({
         <TopLinks feeds={feeds} />
         <MarketQuotesBanner gold={gold} quotes={quotes} />
         <FxRatesBanner rates={fxRates} />
+        <TreasuryYieldsBanner yields={treasuryYields} />
+
+        <RemindersPanel initialReminders={reminders} />
 
         <ConsolidatedReportPanel />
 

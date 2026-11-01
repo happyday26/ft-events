@@ -22,6 +22,49 @@ export interface RssFeed {
 
 export type NewRssFeedInput = Omit<RssFeed, "id">;
 
+export interface Reminder {
+  id: string;
+  title: string;
+  /** Deadline date YYYY-MM-DD (HK calendar day). */
+  deadline: string;
+  notes: string;
+  done: boolean;
+  createdAt: string;
+}
+
+export type NewReminderInput = Omit<Reminder, "id" | "createdAt">;
+
+export function buildReminderId(
+  deadline: string,
+  title: string,
+  existingIds: string[],
+): string {
+  const compactDate = deadline.replace(/-/g, "");
+  const slug = slugifyTitle(title) || "reminder";
+  let id = `rem-${compactDate}-${slug}`;
+
+  if (!existingIds.includes(id)) {
+    return id;
+  }
+
+  let counter = 2;
+  while (existingIds.includes(`${id}-${counter}`)) {
+    counter += 1;
+  }
+
+  return `${id}-${counter}`;
+}
+
+export function sortReminders(reminders: Reminder[]): Reminder[] {
+  return [...reminders].sort((a, b) => {
+    if (a.done !== b.done) return a.done ? 1 : -1;
+    if (a.deadline !== b.deadline) {
+      return a.deadline < b.deadline ? -1 : 1;
+    }
+    return a.title.localeCompare(b.title);
+  });
+}
+
 /** Known feed hosts that aren't useful as click targets. */
 const FEED_HOST_TO_WEBSITE: Record<string, string> = {
   "feeds.bbci.co.uk": "https://www.bbc.com/news",

@@ -90,6 +90,13 @@ const QUOTE_SPECS: YahooQuoteSpec[] = [
     decimals: 2,
     timeZone: "Asia/Hong_Kong",
   },
+  {
+    id: "se-nyse",
+    label: "SE:NYSE",
+    symbol: "SE",
+    decimals: 2,
+    timeZone: "America/New_York",
+  },
 ];
 
 export async function fetchYahooQuote(
@@ -148,7 +155,7 @@ export async function fetchHsiQuote(): Promise<MarketQuote | null> {
   return fetchYahooQuote(spec);
 }
 
-/** HSI + Bitcoin, SpaceX, HSBC, SHKP, Tencent, Zijin (last close vs prior). */
+/** HSI + Bitcoin, SpaceX, HSBC, SHKP, Tencent, Zijin, SE:NYSE (last close vs prior). */
 export async function fetchWatchlistQuotes(): Promise<MarketQuote[]> {
   const results = await Promise.all(QUOTE_SPECS.map(fetchYahooQuote));
   return results.filter((q): q is MarketQuote => q != null);

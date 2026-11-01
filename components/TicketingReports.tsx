@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import type { ArtMateReport } from "@/lib/art-mate-report";
 import type { PopticketReport } from "@/lib/popticket-report";
 import type { UrbtixReport } from "@/lib/urbtix-report";
 
 const DEFAULT_DAYS = 4;
 
-type ReportKey = "urbtix" | "popticket";
+type ReportKey = "urbtix" | "popticket" | "art-mate";
 
 interface ReportDef {
   key: ReportKey;
@@ -31,9 +32,16 @@ const REPORTS: ReportDef[] = [
     apiPath: "/api/arts-culture/popticket-report",
     loadingHint: "Reading Popticket sitemap and programme pages…",
   },
+  {
+    key: "art-mate",
+    title: "Art-mate · 門票搜尋",
+    buttonLabel: "Art-mate report",
+    apiPath: "/api/arts-culture/art-mate-report",
+    loadingHint: "Reading art-mate.net homepage posters…",
+  },
 ];
 
-type AnyReport = UrbtixReport | PopticketReport;
+type AnyReport = UrbtixReport | PopticketReport | ArtMateReport;
 
 function formatGeneratedAt(iso: string): string {
   try {
@@ -107,12 +115,12 @@ export default function TicketingReports() {
           Ticketing reports
         </h2>
         <p className="mt-0.5 text-xs text-sage-800/60">
-          URBTIX · Popticket · newly listed programmes · default last {days}{" "}
-          days (HK)
+          URBTIX · Popticket · Art-mate · newly listed programmes · default last{" "}
+          {days} days (HK)
         </p>
       </div>
 
-      <div className="mb-4 grid gap-3 sm:grid-cols-2">
+      <div className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {REPORTS.map((def) => {
           const loading = loadingKey === def.key;
           return (
@@ -191,6 +199,8 @@ export default function TicketingReports() {
                   </p>
                 ) : def.key === "urbtix" ? (
                   <UrbtixTable report={report as UrbtixReport} />
+                ) : def.key === "art-mate" ? (
+                  <ArtMateTable report={report as ArtMateReport} />
                 ) : (
                   <PopticketTable report={report as PopticketReport} />
                 )}
@@ -283,6 +293,57 @@ function PopticketTable({ report }: { report: PopticketReport }) {
               <td className="whitespace-nowrap px-3 py-2.5 text-xs text-sage-800/70">
                 <div>{row.listedDate}</div>
                 <div className="text-[11px] text-sage-800/45">updated</div>
+              </td>
+              <td className="px-3 py-2.5">
+                <a
+                  href={row.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-forest-700 hover:underline"
+                >
+                  {row.title}
+                </a>
+                <div className="text-[11px] text-sage-800/45">
+                  {row.slug}
+                  {row.status ? ` · ${row.status}` : ""}
+                </div>
+              </td>
+              <td className="whitespace-nowrap px-3 py-2.5 text-xs text-sage-800/70">
+                {row.category || "—"}
+              </td>
+              <td className="px-3 py-2.5 text-xs text-sage-800/70">
+                {row.venue || "—"}
+              </td>
+              <td className="whitespace-nowrap px-3 py-2.5 text-xs text-sage-800/70">
+                {row.showDates || "—"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ArtMateTable({ report }: { report: ArtMateReport }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full text-left text-sm">
+        <thead className="bg-sage-50 text-xs uppercase tracking-wide text-sage-800/55">
+          <tr>
+            <th className="px-3 py-2 font-medium">Listed</th>
+            <th className="px-3 py-2 font-medium">Programme</th>
+            <th className="px-3 py-2 font-medium">Category</th>
+            <th className="px-3 py-2 font-medium">Venue</th>
+            <th className="px-3 py-2 font-medium">Show dates</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-forest-100">
+          {report.events.map((row) => (
+            <tr key={`${row.listedDate}-${row.id}`} className="align-top">
+              <td className="whitespace-nowrap px-3 py-2.5 text-xs text-sage-800/70">
+                <div>{row.listedDate}</div>
+                <div className="text-[11px] text-sage-800/45">poster date</div>
               </td>
               <td className="px-3 py-2.5">
                 <a

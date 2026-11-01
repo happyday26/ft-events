@@ -34,6 +34,7 @@ const ESTATES: EstateReportDef[] = [
     title: "Harbourside · 君臨天下",
     buttonLabel: "Harbourside report",
     apiPath: "/api/property/harbourside-report",
+    criteria: "3-bed",
   },
   {
     key: "sorrento",
@@ -47,6 +48,7 @@ const ESTATES: EstateReportDef[] = [
     title: "Village Gardens · 又一村花園",
     buttonLabel: "又一村花園 report",
     apiPath: "/api/property/village-gardens-report",
+    criteria: "3-bed",
   },
 ];
 

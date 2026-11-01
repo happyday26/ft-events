@@ -1,5 +1,7 @@
 const UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+const FETCH_TIMEOUT_MS = 15000;
 
 export const ESTATE_REPORT_DEFAULT_DAYS = 4;
 
@@ -70,6 +72,7 @@ export const HARBOURSIDE_ESTATE: EstateReportConfig = {
     "https://www.ricacorp.com/zh-hk/property/list/buy/%E5%90%9B%E8%87%A8%E5%A4%A9%E4%B8%8B-estate-%E4%B9%9D%E9%BE%8D%E7%AB%99-hma-hk",
   nameZh: "君臨天下",
   nameEn: "The Harbourside",
+  bedrooms: 3,
 };
 
 export const SORRENTO_ESTATE: EstateReportConfig = {
@@ -97,6 +100,7 @@ export const VILLAGE_GARDENS_ESTATE: EstateReportConfig = {
   hse28ListUrl: "https://www.28hse.com/buy/apartment/a2/dg119/c3092",
   nameZh: "又一村花園",
   nameEn: "Village Gardens",
+  bedrooms: 3,
 };
 
 function day(s: string | null | undefined): string | null {
@@ -195,6 +199,8 @@ async function fetchCentaline(
 ): Promise<EstateListing[]> {
   const body = {
     postType: "Sale",
+    // API only accepts PublishDate (UpdateDate → 400). We still filter rows by
+    // updateDate below so refreshed listings match Midland's activity window.
     sort: "PublishDate",
     order: "Descending",
     size: 100,
@@ -220,6 +226,7 @@ async function fetchCentaline(
     },
     body: JSON.stringify(body),
     next: { revalidate: 0 },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
   if (!r.ok) throw new Error(`Centaline search failed (${r.status})`);
   const j = (await r.json()) as {
@@ -228,6 +235,7 @@ async function fetchCentaline(
       nSize?: number;
       bedroomCount?: number;
       publishDate?: string;
+      updateDate?: string;
       detailUrl?: string;
       displayText?: {
         addr?: { line1?: string; line2?: string };
@@ -240,7 +248,12 @@ async function fetchCentaline(
   for (const p of j.data || []) {
     const dt = p.displayText || {};
     const publish = day(p.publishDate);
-    if (!publish || publish < since || !p.refNo || !p.detailUrl) continue;
+    const update = day(p.updateDate);
+    // Agents often refresh existing posts; updateDate is the useful activity signal
+    // (same idea as Midland). Fall back to first publish if update is missing.
+    const effective = update || publish;
+    const dateType: EstateListingDateType = update ? "update" : "publish";
+    if (!effective || effective < since || !p.refNo || !p.detailUrl) continue;
     const title = `${dt.addr?.line1 || ""} ${dt.addr?.line2 || ""}`.trim();
     const nSize = p.nSize ?? null;
     const bedrooms = p.bedroomCount ?? parseBedrooms(title);
@@ -251,8 +264,8 @@ async function fetchCentaline(
       title,
       price: dt.priceInfo?.price || "",
       nSize,
-      date: publish,
-      dateType: "publish",
+      date: effective,
+      dateType,
       url: p.detailUrl,
     });
   }
@@ -265,10 +278,24 @@ async function fetchMidland(
 ): Promise<EstateListing[]> {
   const pageUrl = `https://www.midland.com.hk/en/list/buy/${estate.midlandListPath}`;
   const page = await fetch(pageUrl, {
-    headers: { "User-Agent": UA, "Accept-Language": "en" },
+    headers: {
+      "User-Agent": UA,
+      Accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "en-HK,en;q=0.9",
+      "Cache-Control": "no-cache",
+      "Upgrade-Insecure-Requests": "1",
+    },
     next: { revalidate: 0 },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
-  if (!page.ok) throw new Error(`Midland page failed (${page.status})`);
+  if (!page.ok) {
+    throw new Error(
+      page.status === 403
+        ? "Midland blocked (403) — site is rejecting automated requests from this network"
+        : `Midland page failed (${page.status})`,
+    );
+  }
   const html = await page.text();
   const match = html.match(
     /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/,
@@ -302,6 +329,7 @@ async function fetchMidland(
       Origin: "https://www.midland.com.hk",
     },
     next: { revalidate: 0 },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
   if (!r.ok) throw new Error(`Midland search failed (${r.status})`);
   const j = (await r.json()) as {
@@ -365,11 +393,30 @@ async function fetch28Hse(
 ): Promise<EstateListing[]> {
   const listUrl = estate.hse28ListUrl;
   const page = await fetch(listUrl, {
-    headers: { "User-Agent": UA, "Accept-Language": "zh-HK" },
+    headers: {
+      "User-Agent": UA,
+      Accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "zh-HK,zh;q=0.9,en;q=0.8",
+      "Cache-Control": "no-cache",
+      "Upgrade-Insecure-Requests": "1",
+    },
     next: { revalidate: 0 },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
-  if (!page.ok) throw new Error(`28Hse list failed (${page.status})`);
+  if (!page.ok) {
+    throw new Error(
+      page.status === 403
+        ? "28Hse blocked (403) — Cloudflare challenge is blocking automated requests"
+        : `28Hse list failed (${page.status})`,
+    );
+  }
   const html = await page.text();
+  if (/challenge page|just a moment|cf-ray/i.test(html)) {
+    throw new Error(
+      "28Hse blocked — Cloudflare challenge page returned instead of listings",
+    );
+  }
   const ids = [
     ...new Set(
       [...html.matchAll(/\/buy\/apartment\/property-(\d+)/g)].map((m) => m[1]),
@@ -387,6 +434,7 @@ async function fetch28Hse(
           Referer: listUrl,
         },
         next: { revalidate: 0 },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       });
       if (!r.ok) return null;
       const t = await r.text();
@@ -483,6 +531,7 @@ async function fetchRicacorp(
           Origin: "https://www.ricacorp.com",
         },
         next: { revalidate: 0 },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       },
     );
     if (!r.ok) throw new Error(`Ricacorp search failed (${r.status})`);
@@ -559,8 +608,8 @@ export async function buildEstateListingReport(
     : ESTATE_REPORT_DEFAULT_DAYS;
   const { since, until } = sinceDateForDays(safeDays);
   const notes: string[] = [
-    "Centaline and 28Hse use publish date.",
-    "Midland and Ricacorp only expose update/modified date (included as a proxy).",
+    "Centaline, Midland, and Ricacorp use update/modified date (refreshes count as activity).",
+    "28Hse uses first publish date when listed on the page.",
   ];
   if (estate.bedrooms != null || estate.minNSize != null) {
     const parts: string[] = [];
@@ -587,17 +636,20 @@ export async function buildEstateListingReport(
   const ricacorp =
     settled[3].status === "fulfilled" ? settled[3].value : ([] as EstateListing[]);
 
+  const reasonText = (reason: unknown) =>
+    reason instanceof Error ? reason.message : String(reason);
+
   if (settled[0].status === "rejected") {
-    notes.push(`Centaline unavailable: ${String(settled[0].reason)}`);
+    notes.push(`Centaline unavailable: ${reasonText(settled[0].reason)}`);
   }
   if (settled[1].status === "rejected") {
-    notes.push(`Midland unavailable: ${String(settled[1].reason)}`);
+    notes.push(`Midland unavailable: ${reasonText(settled[1].reason)}`);
   }
   if (settled[2].status === "rejected") {
-    notes.push(`28Hse unavailable: ${String(settled[2].reason)}`);
+    notes.push(`28Hse unavailable: ${reasonText(settled[2].reason)}`);
   }
   if (settled[3].status === "rejected") {
-    notes.push(`Ricacorp unavailable: ${String(settled[3].reason)}`);
+    notes.push(`Ricacorp unavailable: ${reasonText(settled[3].reason)}`);
   }
 
   const listings = [...centaline, ...hse28, ...midland, ...ricacorp].sort(
