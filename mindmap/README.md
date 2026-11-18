@@ -29,4 +29,5 @@ Open the printed local URL (default `http://localhost:5173`).
 - Persistence: IndexedDB autosave + JSON/OPML export users own
 - Plugins: themes, markers, exporters, AI provider (stub by default)
 
-See Project store doc `docs/mvp-architecture.md` for the full note.
+- User guide: [`docs/user-guide.md`](./docs/user-guide.md)
+- Architecture note (Project store): `docs/mvp-architecture.md`
