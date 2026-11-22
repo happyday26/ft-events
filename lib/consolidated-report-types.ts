@@ -8,6 +8,50 @@ import type { UrbtixReport } from "@/lib/urbtix-report";
 /** Client-safe constants/types only — do not import the builder from client components. */
 export const CONSOLIDATED_REPORT_DEFAULT_DAYS = 4;
 
+/** Home property-search filter presets. */
+export type PropertyFilterMode =
+  | "all"
+  | "exclude-2bed"
+  | "exclude-2bed-be";
+
+export const PROPERTY_FILTER_MODES: PropertyFilterMode[] = [
+  "all",
+  "exclude-2bed",
+  "exclude-2bed-be",
+];
+
+export function isPropertyFilterMode(
+  value: string | null | undefined,
+): value is PropertyFilterMode {
+  return (
+    value === "all" ||
+    value === "exclude-2bed" ||
+    value === "exclude-2bed-be"
+  );
+}
+
+export function propertyFilterModeLabel(mode: PropertyFilterMode): string {
+  switch (mode) {
+    case "all":
+      return "Get all properties";
+    case "exclude-2bed":
+      return "Exclude 2-bed units";
+    case "exclude-2bed-be":
+      return "Exclude 2-bed & units B&E";
+  }
+}
+
+export function propertyFilterModeSummary(mode: PropertyFilterMode): string {
+  switch (mode) {
+    case "all":
+      return "No bedroom or B/E filter";
+    case "exclude-2bed":
+      return "Harbourside: excl. 2-bed & B/E · Sorrento: excl. 2-bed · 又一村花園 omitted";
+    case "exclude-2bed-be":
+      return "Harbourside: excl. 2-bed & B/E · Sorrento: excl. 2-bed · 又一村花園 omitted";
+  }
+}
+
 export type ConsolidatedReportScope =
   | "property"
   | "performance"
@@ -36,19 +80,19 @@ export const CONSOLIDATED_SECTIONS: ConsolidatedSectionMeta[] = [
     key: "harbourside",
     area: "Property",
     scope: "property",
-    title: "Harbourside · 君臨天下 · 3-bed",
+    title: "Harbourside · 君臨天下",
   },
   {
     key: "sorrento",
     area: "Property",
     scope: "property",
-    title: "Sorrento · 擎天半島 · 3-bed 1,000呎+",
+    title: "Sorrento · 擎天半島 · 1,000呎+",
   },
   {
     key: "village-gardens",
     area: "Property",
     scope: "property",
-    title: "Village Gardens · 又一村花園 · 3-bed",
+    title: "Village Gardens · 又一村花園",
   },
   {
     key: "urbtix",
@@ -84,6 +128,8 @@ export const CONSOLIDATED_SECTIONS: ConsolidatedSectionMeta[] = [
 
 export interface ConsolidatedReport {
   scope: ConsolidatedReportScope;
+  /** Set when scope includes property; describes home-search filter preset. */
+  propertyFilter?: PropertyFilterMode;
   since: string;
   until: string;
   days: number;

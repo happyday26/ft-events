@@ -1,8 +1,10 @@
-import { FOCUS_BRIEFINGS } from "@/lib/focus-report";
+import { fetchFocusBriefings } from "@/lib/focus-report";
 import FocusPlusUpdateButton from "./FocusPlusUpdateButton";
 import SiteHeader from "./SiteHeader";
 
-export default function FocusPlusPage() {
+export default async function FocusPlusPage() {
+  const briefings = await fetchFocusBriefings(5);
+
   return (
     <>
       <SiteHeader />
@@ -13,11 +15,12 @@ export default function FocusPlusPage() {
             Focus+
           </h1>
           <p className="mt-1 max-w-2xl text-sm leading-relaxed text-sage-800/70">
-            Five stories that matter, by subject.
+            Five stories that matter, by subject — refreshed from live feeds
+            every visit.
           </p>
           <FocusPlusUpdateButton />
           <nav aria-label="Focus+ briefings" className="mt-4 flex flex-wrap gap-2">
-            {FOCUS_BRIEFINGS.map((briefing) => (
+            {briefings.map((briefing) => (
               <a
                 key={briefing.id}
                 href={`#${briefing.id}`}
@@ -29,7 +32,7 @@ export default function FocusPlusPage() {
           </nav>
         </header>
 
-        {FOCUS_BRIEFINGS.map((briefing) => (
+        {briefings.map((briefing) => (
           <section
             key={briefing.id}
             id={briefing.id}
@@ -43,6 +46,15 @@ export default function FocusPlusPage() {
               </h2>
               <p className="mt-0.5 text-xs text-sage-800/55">
                 {briefing.updatedAt}
+                {" · "}
+                <a
+                  href={briefing.sourceHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  {briefing.sourceLabel}
+                </a>
               </p>
             </div>
 
@@ -50,36 +62,40 @@ export default function FocusPlusPage() {
               {briefing.lede}
             </p>
 
-            <ol className="space-y-4">
-              {briefing.stories.map((story, index) => (
-                <li
-                  key={story.id}
-                  className="rounded-lg bg-white px-3 py-3 ring-1 ring-forest-100"
-                >
-                  <div className="flex items-baseline gap-2">
-                    <span className="w-4 shrink-0 text-xs font-semibold text-forest-700">
-                      {index + 1}.
-                    </span>
-                    <h3 className="font-serif text-base font-semibold text-sage-900">
-                      {story.title}
-                    </h3>
-                  </div>
-                  <p className="mt-2 pl-6 text-sm leading-relaxed text-sage-800/80">
-                    {story.body}
-                  </p>
-                  <p className="mt-2 pl-6 text-xs">
-                    <a
-                      href={story.sourceHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-forest-700 hover:underline"
-                    >
-                      {story.sourceLabel} →
-                    </a>
-                  </p>
-                </li>
-              ))}
-            </ol>
+            {briefing.stories.length === 0 ? (
+              <p className="text-sm text-sage-800/60">No stories available.</p>
+            ) : (
+              <ol className="space-y-4">
+                {briefing.stories.map((story, index) => (
+                  <li
+                    key={story.id}
+                    className="rounded-lg bg-white px-3 py-3 ring-1 ring-forest-100"
+                  >
+                    <div className="flex items-baseline gap-2">
+                      <span className="w-4 shrink-0 text-xs font-semibold text-forest-700">
+                        {index + 1}.
+                      </span>
+                      <h3 className="font-serif text-base font-semibold text-sage-900">
+                        {story.title}
+                      </h3>
+                    </div>
+                    <p className="mt-2 pl-6 text-sm leading-relaxed text-sage-800/80">
+                      {story.body}
+                    </p>
+                    <p className="mt-2 pl-6 text-xs">
+                      <a
+                        href={story.sourceHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-forest-700 hover:underline"
+                      >
+                        {story.sourceLabel} →
+                      </a>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            )}
           </section>
         ))}
       </main>

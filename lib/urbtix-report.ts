@@ -136,6 +136,7 @@ export async function fetchUrbtixBatchXml(ymd: string): Promise<string | null> {
     const res = await fetch(url, {
       headers: { "User-Agent": UA, Accept: "application/xml,text/xml,*/*" },
       cache: "no-store",
+      signal: AbortSignal.timeout(12_000),
     });
     if (!res.ok) return null;
     const text = await res.text();

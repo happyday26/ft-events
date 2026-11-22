@@ -56,8 +56,53 @@ export interface EstateReportConfig {
   nameEn: string;
   /** Keep only this bedroom count when set. */
   bedrooms?: number;
+  /**
+   * Drop listings with these bedroom counts.
+   * Unknown bedroom counts are kept (not treated as matching an exclude).
+   */
+  excludeBedrooms?: number[];
   /** Inclusive saleable/net area floor in sq ft. */
   minNSize?: number;
+  /**
+   * Drop listings whose flat/unit letter is in this list (e.g. ["B","E"]).
+   * Matches Chinese 室 / 單位 and English Flat/Unit forms in title or flat fields.
+   */
+  excludedFlats?: string[];
+}
+
+/**
+ * Apply a home-search filter preset onto an estate config.
+ * Clears static bedrooms / excludedFlats / excludeBedrooms; keeps minNSize.
+ * Mode "all": no bedroom or flat-letter filter.
+ * Mode "exclude-2bed" / "exclude-2bed-be":
+ *   - Harbourside: always exclude 2-bed and flats B & E
+ *   - Other estates: exclude 2-bed only (B & E is Harbourside-only)
+ */
+export function applyPropertyFilterMode(
+  estate: EstateReportConfig,
+  mode: "all" | "exclude-2bed" | "exclude-2bed-be",
+): EstateReportConfig {
+  const {
+    bedrooms: _bedrooms,
+    excludeBedrooms: _excludeBedrooms,
+    excludedFlats: _excludedFlats,
+    ...rest
+  } = estate;
+
+  if (mode === "all") {
+    return rest;
+  }
+
+  // Harbourside always drops both 2-bed and B & E under either exclude mode.
+  if (estate.id === "harbourside") {
+    return {
+      ...rest,
+      excludeBedrooms: [2],
+      excludedFlats: ["B", "E"],
+    };
+  }
+
+  return { ...rest, excludeBedrooms: [2] };
 }
 
 export const HARBOURSIDE_ESTATE: EstateReportConfig = {
@@ -73,6 +118,7 @@ export const HARBOURSIDE_ESTATE: EstateReportConfig = {
   nameZh: "君臨天下",
   nameEn: "The Harbourside",
   bedrooms: 3,
+  excludedFlats: ["B", "E"],
 };
 
 export const SORRENTO_ESTATE: EstateReportConfig = {
@@ -160,16 +206,55 @@ function parseBedrooms(text: string | null | undefined): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+/** Flat/unit letter from explicit markers only (not bedroom counts or building names). */
+function parseFlatLetter(text: string | null | undefined): string | null {
+  if (!text) return null;
+  const s = String(text).trim();
+  if (/^[A-Za-z]$/.test(s)) return s.toUpperCase();
+  const m =
+    s.match(/(?:Flat|Unit|Apt\.?|Apartment)\s*([A-Za-z])\b/i) ||
+    s.match(/\b([A-Za-z])\s*室/) ||
+    s.match(/單位\s*([A-Za-z])/i);
+  return m ? m[1].toUpperCase() : null;
+}
+
+function extractFlatLetter(
+  ...hints: (string | null | undefined)[]
+): string | null {
+  for (const hint of hints) {
+    const letter = parseFlatLetter(hint);
+    if (letter) return letter;
+  }
+  return null;
+}
+
 function matchesUnitFocus(
   estate: EstateReportConfig,
   nSize: number | null,
   bedrooms: number | null,
+  flatHints: (string | null | undefined)[] = [],
 ): boolean {
   if (estate.minNSize != null && (nSize == null || nSize < estate.minNSize)) {
     return false;
   }
   if (estate.bedrooms != null && bedrooms !== estate.bedrooms) {
     return false;
+  }
+  // Exclude-by-count: only drop when bedroom count is known and listed.
+  // Unknown bedrooms are kept so we do not over-filter incomplete listings.
+  if (
+    estate.excludeBedrooms?.length &&
+    bedrooms != null &&
+    estate.excludeBedrooms.includes(bedrooms)
+  ) {
+    return false;
+  }
+  if (estate.excludedFlats?.length) {
+    const excluded = new Set(
+      estate.excludedFlats.map((f) => String(f).trim().toUpperCase()),
+    );
+    const letter = extractFlatLetter(...flatHints);
+    if (letter && excluded.has(letter)) return false;
   }
   return true;
 }
@@ -257,7 +342,7 @@ async function fetchCentaline(
     const title = `${dt.addr?.line1 || ""} ${dt.addr?.line2 || ""}`.trim();
     const nSize = p.nSize ?? null;
     const bedrooms = p.bedroomCount ?? parseBedrooms(title);
-    if (!matchesUnitFocus(estate, nSize, bedrooms)) continue;
+    if (!matchesUnitFocus(estate, nSize, bedrooms, [title])) continue;
     rows.push({
       source: "Centaline",
       ref: p.refNo,
@@ -364,7 +449,10 @@ async function fetchMidland(
       : `https://www.midland.com.hk/en/property/${p.url_desc || p.serial_no}`;
     const nSize = p.net_area ?? null;
     const bedrooms = p.bedroom ?? null;
-    if (!matchesUnitFocus(estate, nSize, bedrooms)) continue;
+    const flatHint = p.flat ? `Flat ${p.flat}` : null;
+    if (!matchesUnitFocus(estate, nSize, bedrooms, [p.flat, flatHint])) {
+      continue;
+    }
     rows.push({
       source: "Midland",
       ref: p.serial_no,
@@ -372,7 +460,7 @@ async function fetchMidland(
         estateName,
         bldg,
         floor,
-        p.flat ? `Flat ${p.flat}` : "",
+        flatHint || "",
         bedrooms != null ? `${bedrooms}床` : "",
       ]
         .filter(Boolean)
@@ -476,7 +564,7 @@ async function fetch28Hse(
             plain.match(/房間\s*[:：]?\s*\d+/) ||
             [])[0],
         ) ?? parseBedrooms(title);
-      if (!matchesUnitFocus(estate, nSize, bedrooms)) return null;
+      if (!matchesUnitFocus(estate, nSize, bedrooms, [title])) return null;
       const row: EstateListing = {
         source: "28Hse",
         ref: id,
@@ -565,17 +653,22 @@ async function fetchRicacorp(
         reachedOlder = true;
         continue;
       }
+      const flatZone = p.flatZoneTextHk || p.flatZoneText;
       const title = [
         p.displayTextHk || p.displayText || estate.nameZh,
         p.floorZoneText,
-        p.flatZoneTextHk || p.flatZoneText,
+        flatZone,
       ]
         .filter(Boolean)
         .join(" ");
       const nSize = p.saleableArea ?? null;
       const bedrooms =
         p.bedroom ?? p.room ?? p.noOfRoom ?? parseBedrooms(title);
-      if (!matchesUnitFocus(estate, nSize, bedrooms)) continue;
+      if (
+        !matchesUnitFocus(estate, nSize, bedrooms, [flatZone, title])
+      ) {
+        continue;
+      }
       const path = p.aliasV4 || p.postNo;
       rows.push({
         source: "Ricacorp",
@@ -611,13 +704,28 @@ export async function buildEstateListingReport(
     "Centaline, Midland, and Ricacorp use update/modified date (refreshes count as activity).",
     "28Hse uses first publish date when listed on the page.",
   ];
-  if (estate.bedrooms != null || estate.minNSize != null) {
+  if (
+    estate.bedrooms != null ||
+    (estate.excludeBedrooms?.length ?? 0) > 0 ||
+    estate.minNSize != null ||
+    (estate.excludedFlats?.length ?? 0) > 0
+  ) {
     const parts: string[] = [];
     if (estate.bedrooms != null) parts.push(`${estate.bedrooms}-bed`);
+    if (estate.excludeBedrooms?.length) {
+      parts.push(
+        `excluding ${estate.excludeBedrooms.join("/")}-bed (unknown bedrooms kept)`,
+      );
+    }
     if (estate.minNSize != null) {
       parts.push(`over ${(estate.minNSize - 1).toLocaleString()} sq ft`);
     }
+    if (estate.excludedFlats?.length) {
+      parts.push(`excluding ${estate.excludedFlats.join(" & ")} units`);
+    }
     notes.push(`Filtered to ${parts.join(" · ")}.`);
+  } else {
+    notes.push("No bedroom or flat-letter filter applied.");
   }
 
   const settled = await Promise.allSettled([

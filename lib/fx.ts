@@ -57,6 +57,7 @@ async function fetchFxClose(spec: FxSpec): Promise<FxRate | null> {
       `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(spec.symbol)}?interval=1d&range=10d&_=${Date.now()}`,
       {
         cache: "no-store",
+        signal: AbortSignal.timeout(12_000),
         headers: {
           Accept: "application/json",
           "User-Agent": BROWSER_UA,

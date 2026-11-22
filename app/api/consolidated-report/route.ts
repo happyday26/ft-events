@@ -4,6 +4,10 @@ import {
   buildConsolidatedReport,
   type ConsolidatedReportScope,
 } from "@/lib/consolidated-report";
+import {
+  isPropertyFilterMode,
+  type PropertyFilterMode,
+} from "@/lib/consolidated-report-types";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 180;
@@ -21,6 +25,7 @@ export async function GET(request: Request) {
     const raw = searchParams.get("days");
     const days = raw ? Number(raw) : CONSOLIDATED_REPORT_DEFAULT_DAYS;
     const scopeParam = searchParams.get("scope") || "all";
+    const propertyFilterParam = searchParams.get("propertyFilter");
 
     if (!Number.isFinite(days) || days < 1 || days > 30) {
       return NextResponse.json(
@@ -39,9 +44,24 @@ export async function GET(request: Request) {
       );
     }
 
+    let propertyFilter: PropertyFilterMode = "exclude-2bed-be";
+    if (propertyFilterParam != null) {
+      if (!isPropertyFilterMode(propertyFilterParam)) {
+        return NextResponse.json(
+          {
+            error:
+              "propertyFilter must be all, exclude-2bed, or exclude-2bed-be.",
+          },
+          { status: 400 },
+        );
+      }
+      propertyFilter = propertyFilterParam;
+    }
+
     const report = await buildConsolidatedReport(
       days,
       scopeParam as ConsolidatedReportScope,
+      propertyFilter,
     );
     return NextResponse.json(report);
   } catch {

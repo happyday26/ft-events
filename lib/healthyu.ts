@@ -9,6 +9,7 @@ export async function fetchHealthyUPreview(
   try {
     const response = await fetch(`${SOURCE_URL}?r=${Date.now()}`, {
       cache: "no-store",
+      signal: AbortSignal.timeout(12_000),
       headers: {
         Accept: "text/html",
         "User-Agent":

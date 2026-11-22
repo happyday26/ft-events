@@ -75,6 +75,12 @@ export const MEDIA_LINKS: MediaLink[] = [
     note: "Sing Tao Headline · realtime news",
   },
   {
+    id: "stheadline-paper",
+    label: "星島頭條 · 電子報",
+    href: "https://paper.stheadline.com/",
+    note: "Sing Tao Headline · e-paper",
+  },
+  {
     id: "tvb-news",
     label: "無綫新聞",
     href: "https://news.tvb.com/",

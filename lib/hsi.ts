@@ -107,6 +107,7 @@ export async function fetchYahooQuote(
       `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(spec.symbol)}?interval=1d&range=5d&_=${Date.now()}`,
       {
         cache: "no-store",
+        signal: AbortSignal.timeout(12_000),
         headers: {
           Accept: "application/json",
           "User-Agent": BROWSER_UA,
@@ -153,6 +154,17 @@ export async function fetchHsiQuote(): Promise<MarketQuote | null> {
   const spec = QUOTE_SPECS.find((q) => q.id === "hsi");
   if (!spec) return null;
   return fetchYahooQuote(spec);
+}
+
+/** CBOE Volatility Index (^VIX). */
+export async function fetchVixQuote(): Promise<MarketQuote | null> {
+  return fetchYahooQuote({
+    id: "vix",
+    label: "VIX",
+    symbol: "^VIX",
+    decimals: 2,
+    timeZone: "America/New_York",
+  });
 }
 
 /** HSI + Bitcoin, SpaceX, HSBC, SHKP, Tencent, Zijin, SE:NYSE (last close vs prior). */

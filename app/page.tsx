@@ -7,7 +7,7 @@ import {
   fetchTopWsjNews,
 } from "@/lib/finance-news";
 import { fetchFxClosingRates } from "@/lib/fx";
-import { fetchWatchlistQuotes } from "@/lib/hsi";
+import { fetchVixQuote, fetchWatchlistQuotes } from "@/lib/hsi";
 import { loadReminders } from "@/lib/reminders";
 import { fetchTreasuryYields } from "@/lib/treasury";
 import { fetchHongKongWeather } from "@/lib/weather";
@@ -24,6 +24,7 @@ export default async function Page() {
     quotes,
     fxRates,
     treasuryYields,
+    vix,
     financeNews,
     wsjNews,
     hketNews,
@@ -36,6 +37,7 @@ export default async function Page() {
     fetchWatchlistQuotes(),
     fetchFxClosingRates(),
     fetchTreasuryYields(),
+    fetchVixQuote(),
     fetchTopFinanceNews(5),
     fetchTopWsjNews(5),
     fetchTopHketNews(5),
@@ -51,6 +53,7 @@ export default async function Page() {
       quotes={quotes}
       fxRates={fxRates}
       treasuryYields={treasuryYields}
+      vix={vix}
       financeNews={financeNews}
       wsjNews={wsjNews}
       hketNews={hketNews}

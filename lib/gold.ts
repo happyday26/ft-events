@@ -22,6 +22,7 @@ export async function fetchLondonGoldClose(): Promise<LondonGoldPrice | null> {
   try {
     const response = await fetch(`${LBMA_PM_URL}?r=${Date.now()}`, {
       cache: "no-store",
+      signal: AbortSignal.timeout(12_000),
       headers: {
         Accept: "application/json",
         "User-Agent": "ft-events/1.0",

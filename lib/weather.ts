@@ -58,10 +58,12 @@ export async function fetchHongKongWeather(): Promise<HkWeather | null> {
     const [currentRes, forecastRes] = await Promise.all([
       fetch(`${HKO_WEATHER_API}?dataType=rhrread&lang=en&r=${Date.now()}`, {
         cache: "no-store",
+        signal: AbortSignal.timeout(12_000),
         headers: { Accept: "application/json" },
       }),
       fetch(`${HKO_WEATHER_API}?dataType=flw&lang=en&r=${Date.now()}`, {
         cache: "no-store",
+        signal: AbortSignal.timeout(12_000),
         headers: { Accept: "application/json" },
       }),
     ]);

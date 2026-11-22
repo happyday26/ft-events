@@ -63,6 +63,7 @@ function parseRssItems(
   xml: string,
   limit: number,
   source: string,
+  summaryMaxLength = 180,
 ): FinanceNewsItem[] {
   const items: FinanceNewsItem[] = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
@@ -85,7 +86,7 @@ function parseRssItems(
       id: `${source}-${items.length + 1}-${link}`,
       title,
       link,
-      summary: summary.slice(0, 180),
+      summary: summary.slice(0, summaryMaxLength),
       publishedAt,
       source,
     });
@@ -170,15 +171,17 @@ function parseHkejInstantItems(html: string, limit: number): FinanceNewsItem[] {
   return items;
 }
 
-async function fetchRssNews(
+export async function fetchRssNews(
   feedUrl: string,
   source: string,
   limit: number,
+  options?: { summaryMaxLength?: number },
 ): Promise<FinanceNewsItem[]> {
   try {
     const separator = feedUrl.includes("?") ? "&" : "?";
     const response = await fetch(`${feedUrl}${separator}r=${Date.now()}`, {
       cache: "no-store",
+      signal: AbortSignal.timeout(12_000),
       headers: {
         Accept: "application/rss+xml, application/xml, text/xml, text/html",
         "User-Agent": BROWSER_UA,
@@ -188,7 +191,7 @@ async function fetchRssNews(
     if (!response.ok) return [];
 
     const xml = await response.text();
-    return parseRssItems(xml, limit, source);
+    return parseRssItems(xml, limit, source, options?.summaryMaxLength ?? 180);
   } catch {
     return [];
   }
@@ -200,6 +203,7 @@ async function fetchHtml(
   try {
     const response = await fetch(`${url}${url.includes("?") ? "&" : "?"}r=${Date.now()}`, {
       cache: "no-store",
+      signal: AbortSignal.timeout(12_000),
       headers: {
         Accept: "text/html,application/xhtml+xml",
         "User-Agent": BROWSER_UA,

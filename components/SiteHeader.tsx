@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface SiteHeaderProps {
@@ -31,12 +30,13 @@ export default function SiteHeader({ onAddEventClick, onAddRssClick }: SiteHeade
   return (
     <header className="border-b border-forest-200/80">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-4 px-4 py-4 sm:px-6">
-        <Link
+        {/* Native <a> avoids soft-nav hangs when the RSC server is wedged. */}
+        <a
           href="/"
           className="font-serif text-xl font-bold tracking-wide text-forest-700"
         >
           FT Deck
-        </Link>
+        </a>
 
         <nav className="flex flex-wrap gap-2" aria-label="Main">
           {NAV.map((item) => {
@@ -46,7 +46,7 @@ export default function SiteHeader({ onAddEventClick, onAddRssClick }: SiteHeade
                 : pathname.startsWith(item.href);
 
             return (
-              <Link
+              <a
                 key={item.href}
                 href={item.href}
                 className={`rounded-full px-3 py-1 text-xs font-medium ${
@@ -56,7 +56,7 @@ export default function SiteHeader({ onAddEventClick, onAddRssClick }: SiteHeade
                 }`}
               >
                 {item.label}
-              </Link>
+              </a>
             );
           })}
         </nav>
@@ -82,12 +82,12 @@ export default function SiteHeader({ onAddEventClick, onAddRssClick }: SiteHeade
               </button>
             )}
             {showEventsShortcut && (
-              <Link
+              <a
                 href="/events"
                 className="rounded-full bg-forest-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-forest-700"
               >
                 Events →
-              </Link>
+              </a>
             )}
           </div>
         )}

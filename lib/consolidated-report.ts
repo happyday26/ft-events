@@ -5,6 +5,7 @@ import {
   HARBOURSIDE_ESTATE,
   SORRENTO_ESTATE,
   VILLAGE_GARDENS_ESTATE,
+  applyPropertyFilterMode,
   buildEstateListingReport,
   sinceDateForDays,
 } from "@/lib/estate-listing-report";
@@ -15,9 +16,12 @@ import { buildUrbtixReport } from "@/lib/urbtix-report";
 import {
   CONSOLIDATED_REPORT_DEFAULT_DAYS,
   CONSOLIDATED_SECTIONS,
+  propertyFilterModeLabel,
+  propertyFilterModeSummary,
   type ConsolidatedReport,
   type ConsolidatedReportScope,
   type ConsolidatedSectionKey,
+  type PropertyFilterMode,
 } from "@/lib/consolidated-report-types";
 
 export {
@@ -44,6 +48,7 @@ function includesScope(
 export async function buildConsolidatedReport(
   days = CONSOLIDATED_REPORT_DEFAULT_DAYS,
   scope: ConsolidatedReportScope = "all",
+  propertyFilter: PropertyFilterMode = "exclude-2bed-be",
 ): Promise<ConsolidatedReport> {
   const safeDays = Number.isFinite(days)
     ? Math.min(30, Math.max(1, Math.floor(days)))
@@ -56,7 +61,7 @@ export async function buildConsolidatedReport(
 
   const scopeLabel =
     scope === "property"
-      ? "Property search"
+      ? `Property search · ${propertyFilterModeLabel(propertyFilter)}`
       : scope === "performance"
         ? "Performance search"
         : scope === "golden-life"
@@ -67,16 +72,54 @@ export async function buildConsolidatedReport(
     scopeLabel,
     `Window: last ${safeDays} HK calendar days.`,
   ];
+  if (runProperty) {
+    notes.push(`Property filter: ${propertyFilterModeSummary(propertyFilter)}.`);
+  }
+
+  const harboursideConfig = applyPropertyFilterMode(
+    HARBOURSIDE_ESTATE,
+    propertyFilter,
+  );
+  const sorrentoConfig = applyPropertyFilterMode(
+    SORRENTO_ESTATE,
+    propertyFilter,
+  );
+  const villageGardensConfig = applyPropertyFilterMode(
+    VILLAGE_GARDENS_ESTATE,
+    propertyFilter,
+  );
+  // 又一村花園 is omitted from both exclude-mode searches.
+  const runVillageGardens =
+    runProperty &&
+    propertyFilter !== "exclude-2bed" &&
+    propertyFilter !== "exclude-2bed-be";
+
+  if (
+    runProperty &&
+    (propertyFilter === "exclude-2bed" ||
+      propertyFilter === "exclude-2bed-be")
+  ) {
+    notes.push("又一村花園 omitted for this exclude search.");
+  }
+  if (
+    runProperty &&
+    (propertyFilter === "exclude-2bed" ||
+      propertyFilter === "exclude-2bed-be")
+  ) {
+    notes.push(
+      "Harbourside excludes both 2-bed and B & E flats; B & E is Harbourside-only.",
+    );
+  }
 
   const settled = await Promise.allSettled([
     runProperty
-      ? buildEstateListingReport(HARBOURSIDE_ESTATE, safeDays)
+      ? buildEstateListingReport(harboursideConfig, safeDays)
       : Promise.resolve(null),
     runProperty
-      ? buildEstateListingReport(SORRENTO_ESTATE, safeDays)
+      ? buildEstateListingReport(sorrentoConfig, safeDays)
       : Promise.resolve(null),
-    runProperty
-      ? buildEstateListingReport(VILLAGE_GARDENS_ESTATE, safeDays)
+    runVillageGardens
+      ? buildEstateListingReport(villageGardensConfig, safeDays)
       : Promise.resolve(null),
     runPerformance ? buildUrbtixReport(safeDays) : Promise.resolve(null),
     runPerformance ? buildPopticketReport(safeDays) : Promise.resolve(null),
@@ -101,7 +144,7 @@ export async function buildConsolidatedReport(
   const active = [
     runProperty,
     runProperty,
-    runProperty,
+    runVillageGardens,
     runPerformance,
     runPerformance,
     runPerformance,
@@ -162,6 +205,7 @@ export async function buildConsolidatedReport(
 
   return {
     scope,
+    ...(runProperty ? { propertyFilter } : {}),
     since,
     until,
     days: safeDays,

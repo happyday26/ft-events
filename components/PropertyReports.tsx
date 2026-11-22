@@ -34,7 +34,7 @@ const ESTATES: EstateReportDef[] = [
     title: "Harbourside · 君臨天下",
     buttonLabel: "Harbourside report",
     apiPath: "/api/property/harbourside-report",
-    criteria: "3-bed",
+    criteria: "3-bed · excluding B & E units",
   },
   {
     key: "sorrento",

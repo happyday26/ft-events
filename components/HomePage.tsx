@@ -23,6 +23,7 @@ interface HomePageProps {
   quotes: MarketQuote[];
   fxRates: FxRate[];
   treasuryYields: TreasuryYield[];
+  vix: MarketQuote | null;
   financeNews: FinanceNewsItem[];
   wsjNews: FinanceNewsItem[];
   hketNews: FinanceNewsItem[];
@@ -37,6 +38,7 @@ export default function HomePage({
   quotes = [],
   fxRates = [],
   treasuryYields = [],
+  vix = null,
   financeNews = [],
   wsjNews = [],
   hketNews = [],
@@ -51,7 +53,7 @@ export default function HomePage({
         <TopLinks feeds={feeds} />
         <MarketQuotesBanner gold={gold} quotes={quotes} />
         <FxRatesBanner rates={fxRates} />
-        <TreasuryYieldsBanner yields={treasuryYields} />
+        <TreasuryYieldsBanner yields={treasuryYields} vix={vix} />
 
         <RemindersPanel initialReminders={reminders} />
 
